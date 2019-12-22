@@ -56,6 +56,9 @@
               @expired="onCaptchaExpired"
             ></vue-recaptcha>
             <br />
+            <div v-if="serverError">
+              <p style="color: red">{{ status }}</p>
+            </div>
             <a
               class="button is-primary login-btn is-medium"
               :class="{ 'is-loading': isLoading }"
@@ -87,36 +90,38 @@ export default {
       authenticatedUser: null,
       isLoading: false,
       loginStatus: 'Welcome to OneGuy Cinematics',
-
+      validCaptcha: undefined,
       status: '',
       sucessfulServerResponse: '',
-      serverError: ''
+      serverError: undefined
     }
   },
   methods: {
-    submit() {
-      this.$refs.recaptcha.execute()
-    },
     onCaptchaVerified: function(recaptchaToken) {
-      this.register(recaptchaToken)
+      this.validCaptcha = true
     },
     onCaptchaExpired: function() {
-      alert('failed captcha')
+      this.validCaptcha = false
     },
     register() {
-      firebase
-        .auth()
-        .createUserWithEmailAndPassword(this.form.email, this.form.password)
-        .then(data => {
-          data.user
-            .updateProfile({
-              displayName: this.displayName
-            })
-            .then(() => {})
-        })
-        .catch(err => {
-          this.error = err.message
-        })
+      if (this.validCaptcha == true) {
+        firebase
+          .auth()
+          .createUserWithEmailAndPassword(this.form.email, this.form.password)
+          .then(data => {
+            data.user
+              .updateProfile({
+                displayName: this.displayName
+              })
+              .then(() => {})
+          })
+          .catch(err => {
+            this.error = err.message
+          })
+      } else {
+        this.serverError = true
+        this.status = 'Missing or invalid reCaptcha'
+      }
     }
   }
 }
