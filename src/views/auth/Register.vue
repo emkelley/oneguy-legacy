@@ -97,10 +97,10 @@ export default {
     }
   },
   methods: {
-    onCaptchaVerified: function(recaptchaToken) {
+    onCaptchaVerified() {
       this.validCaptcha = true
     },
-    onCaptchaExpired: function() {
+    onCaptchaExpired() {
       this.validCaptcha = false
     },
     register() {
