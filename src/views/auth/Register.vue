@@ -63,7 +63,7 @@
               class="button is-primary login-btn is-medium"
               :class="{ 'is-loading': isLoading }"
               :disabled="isLoading"
-              @click="submit()"
+              @click="register()"
               >Register</a
             >
           </form>
