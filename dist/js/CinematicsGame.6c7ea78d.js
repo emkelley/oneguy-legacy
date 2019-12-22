@@ -1,2 +1,0 @@
-(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["CinematicsGame"],{"9cdc":function(n,c,e){"use strict";e.r(c);var a,l,s=e("2877"),t={},u=Object(s["a"])(t,a,l,!1,null,null,null);c["default"]=u.exports}}]);
-//# sourceMappingURL=CinematicsGame.6c7ea78d.js.map

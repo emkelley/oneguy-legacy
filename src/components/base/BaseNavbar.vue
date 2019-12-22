@@ -75,9 +75,9 @@
           </b-dropdown>
           <div class="navbar-item">
             <div class="buttons">
-              <a v-if="!isAuthed" class="button is-og">
+              <router-link to="/register" v-if="!isAuthed" class="button is-og">
                 <strong>Sign up</strong>
-              </a>
+              </router-link>
               <router-link
                 v-if="!isAuthed"
                 to="/login"
