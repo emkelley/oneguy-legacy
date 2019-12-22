@@ -6,7 +6,7 @@ import Buefy from 'buefy'
 import { firebase } from '@firebase/app'
 import '@firebase/firestore'
 import '@firebase/auth'
-import '@fortawesome/fontawesome-pro/js/all.js'
+// import '@fortawesome/fontawesome-pro/js/all.js'
 
 Vue.config.productionTip = false
 
