@@ -8,7 +8,13 @@
           </center>
         </div>
         <br />
-        <p class="help">{{ loginStatus }}</p>
+        <p class="help status">{{ loginStatus }}</p>
+        <br />
+        <p v-if="sendVerificationEmailLink">
+          <a @click="sendVerificationEmail">Resend verification email</a>
+          <br />
+          <span v-if="verificationSent">Sent!</span>
+        </p>
         <div class="content">
           <form method="POST" action="#">
             <input
@@ -71,16 +77,25 @@ export default {
       authenticatedUser: null,
       isLoading: false,
       loginStatus: 'Welcome to OneGuy Cinematics',
-      error: ''
+      error: '',
+      sendVerificationEmailLink: false,
+      verificationSent: false
     }
   },
   methods: {
     login() {
+      this.sendVerificationEmailLink = false
+      this.verificationSent = false
       this.loginStatus = 'Logging in...'
       firebase
         .auth()
         .signInWithEmailAndPassword(this.email, this.password)
         .then(user => {
+          if (user.user.emailVerified == false) {
+            this.loginStatus = `Your email is not verified. Please verify your email before logging in.`
+            this.sendVerificationEmailLink = true
+            return
+          }
           this.loginStatus = 'Fetching profile...'
           const userId = user.user.uid
           const userIdString = userId.toString()
@@ -98,9 +113,7 @@ export default {
                 this.$store.commit('setProfile', data)
                 this.$store.commit('setUserId', userId)
                 this.loginStatus = 'Thank you for logging in. Redirecting...'
-                setTimeout(() => {
-                  this.$router.replace({ name: 'cinematics' })
-                }, 1500)
+                this.$router.push({ name: 'cinematics' })
               }
             })
             .catch(err => {
@@ -109,6 +122,17 @@ export default {
         })
         .catch(err => {
           this.error = err.message
+        })
+    },
+    sendVerificationEmail() {
+      let user = firebase.auth().currentUser
+      user
+        .sendEmailVerification()
+        .then(function() {
+          this.verificationSent = true
+        })
+        .catch(function(error) {
+          this.verificationSent = error
         })
     }
   }
@@ -121,7 +145,10 @@ $grey-dark: hsl(0, 0%, 29%);
 $grey: hsl(0, 0%, 48%);
 $grey-light: hsl(0, 0%, 71%);
 $grey-lighter: hsl(0, 0%, 86%);
-
+.status {
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
 #login {
   margin-top: -52px;
   display: flex;

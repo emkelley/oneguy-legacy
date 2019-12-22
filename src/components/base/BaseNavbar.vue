@@ -51,12 +51,7 @@
               <span style="padding-left: 10px;">Menu</span>
             </a>
 
-            <b-dropdown-item
-              v-if="isAuthed"
-              class="va"
-              custom
-              aria-role="menuitem"
-            >
+            <b-dropdown-item class="va" custom aria-role="menuitem">
               Logged as <b>{{ userProfile.email }}</b>
             </b-dropdown-item>
             <hr class="dropdown-divider" />

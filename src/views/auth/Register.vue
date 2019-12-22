@@ -6,26 +6,30 @@
           <center>
             <img src="~@/assets/img/logo-horizontal-white.svg" width="250" />
           </center>
+          <br />
+          <strong style="color: white" class=" has-text-centered">
+            Create A New Account
+          </strong>
         </div>
-
         <div class="content">
           <form method="POST" action="#">
             <input
-              id="displayName"
-              v-model="displayName"
+              id="name"
+              v-model="name"
               type="text"
-              name="Display Name"
-              title="Display Name"
-              placeholder="Nickname (e.g., OneGuy)"
+              name="Name"
+              title="Name"
+              placeholder="Name (e.g., OneGuy or Eric)"
               required
               autofocus
             />
+
             <input
               id="email"
               v-model="email"
               type="email"
-              name="email"
-              title="email"
+              name="Email"
+              title="Email"
               placeholder="Email"
               required
               autofocus
@@ -34,39 +38,45 @@
               id="password"
               v-model="password"
               type="password"
-              name="password"
-              title="password"
+              name="Password"
+              title="Password"
               placeholder="Password"
               required
             />
             <input
-              id="password"
-              v-model="passwordAgain"
+              id="passwordConfirmation"
+              v-model="passwordConfirmation"
               type="password"
-              name="password"
-              title="password"
-              placeholder="Password"
+              name="Password Confirmation"
+              title="Password Confirmation"
+              placeholder="Confirm Password"
               required
             />
-
-            <vue-recaptcha
-              sitekey="6LfMQMkUAAAAAGgAxPXQucNAHhALftiYGA1CUMak"
-              :loadRecaptchaScript="true"
-              @verify="onCaptchaVerified"
-              @expired="onCaptchaExpired"
-            ></vue-recaptcha>
-            <br />
-            <div v-if="serverError">
-              <p style="color: red">{{ status }}</p>
-            </div>
             <a
               class="button is-primary login-btn is-medium"
               :class="{ 'is-loading': isLoading }"
               :disabled="isLoading"
-              @click="register()"
+              @click="validate()"
               >Register</a
             >
           </form>
+          <br />
+
+          <b-notification v-if="confirmModal" type="is-success">
+            <div class="columns">
+              <div class="column va has-text-centered">
+                <p class="heading">
+                  <i class="fad fa-user-check fa-lg"></i>&ensp;<strong
+                    >Check your email</strong
+                  >
+                </p>
+                <p>
+                  Success! We've sent over a confirmation email to activate your
+                  account.
+                </p>
+              </div>
+            </div>
+          </b-notification>
         </div>
       </div>
     </div>
@@ -74,54 +84,68 @@
 </template>
 
 <script>
+import { db } from '@/main'
 import firebase from '@firebase/app'
 import '@firebase/auth'
-import VueRecaptcha from 'vue-recaptcha'
 export default {
-  components: {
-    VueRecaptcha
-  },
+  components: {},
   data() {
     return {
-      displayName: 'OneGuy',
-      email: 'hello@emk.dev',
-      password: 'Ek206045E$k',
-      passwordAgain: 'Ek206045E$k',
-      authenticatedUser: null,
       isLoading: false,
-      loginStatus: 'Welcome to OneGuy Cinematics',
-      validCaptcha: undefined,
-      status: '',
-      sucessfulServerResponse: '',
-      serverError: undefined
+      name: 'juanguy',
+      email: 'e.kelley94@gmail.com',
+      password: 'password123',
+      passwordConfirmation: 'password123',
+      errors: [],
+      confirmModal: false
     }
   },
   methods: {
-    onCaptchaVerified() {
-      this.validCaptcha = true
-    },
-    onCaptchaExpired() {
-      this.validCaptcha = false
+    validate() {
+      this.isLoading = true
+      if (this.name.length < 3) {
+        this.errors.push({
+          type: 'Name must be greater than 2 characters'
+        })
+      }
+      if (this.password !== this.passwordConfirmation) {
+        this.errors.push({
+          type: 'Nickname must be greater than 3 characters'
+        })
+      }
+      if (this.errors.length === 0) {
+        this.register()
+      }
     },
     register() {
-      if (this.validCaptcha == true) {
-        firebase
-          .auth()
-          .createUserWithEmailAndPassword(this.form.email, this.form.password)
-          .then(data => {
-            data.user
-              .updateProfile({
-                displayName: this.displayName
-              })
-              .then(() => {})
-          })
-          .catch(err => {
-            this.error = err.message
-          })
-      } else {
-        this.serverError = true
-        this.status = 'Missing or invalid reCaptcha'
-      }
+      firebase
+        .auth()
+        .createUserWithEmailAndPassword(this.email, this.password)
+        .then(user => {
+          if (user.user.emailVerified === false) {
+            user.user.sendEmailVerification().then(function() {
+              console.log('email verification sent to user')
+            })
+          }
+          const dateNow = new Date()
+          let userId = user.user.uid
+          db.collection('users')
+            .doc(userId)
+            .set({
+              id: userId,
+              accountCreated: dateNow,
+              donator: false,
+              email: this.email,
+              isAdmin: false,
+              username: this.name
+            })
+            .then(() => {
+              this.confirmModal = true
+            })
+        })
+        .catch(err => {
+          this.error = err.message
+        })
     }
   }
 }
@@ -169,14 +193,14 @@ $grey-lighter: hsl(0, 0%, 86%);
         font-size: 1.2rem;
       }
     }
-
     .content {
       padding: 3rem 2.5rem 2rem;
     }
 
     #email,
     #password,
-    #displayName {
+    #passwordConfirmation,
+    #name {
       display: block;
       width: 100%;
       font-size: 1rem;
@@ -195,7 +219,6 @@ $grey-lighter: hsl(0, 0%, 86%);
         border-color: $primary;
       }
     }
-
     .checkbox {
       color: $grey-light;
       font-size: 0.8rem;
@@ -233,6 +256,10 @@ $grey-lighter: hsl(0, 0%, 86%);
       }
     }
   }
+}
+.modal {
+  background: white;
+  padding: 2rem;
 }
 #app {
   backdrop-filter: saturate(200%) blur(10px) !important;
