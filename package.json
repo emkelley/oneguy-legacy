@@ -1,0 +1,70 @@
+{
+  "name": "oneguy-cinematics",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
+  },
+  "dependencies": {
+    "buefy": "^0.8.8",
+    "core-js": "^3.4.3",
+    "firebase": "^7.6.1",
+    "lodash": "^4.17.15",
+    "node-sass": "^4.13.0",
+    "vue": "^2.6.10",
+    "vue-analytics": "^5.20.1",
+    "vue-recaptcha": "^1.3.0",
+    "vue-router": "^3.1.3",
+    "vue-typer": "^1.2.0",
+    "vuex": "^3.1.2",
+    "vuex-persistedstate": "^2.7.0"
+  },
+  "devDependencies": {
+    "@fortawesome/fontawesome-free": "^5.12.0",
+    "@fortawesome/fontawesome-pro": "^5.12.0",
+    "@vue/cli-plugin-babel": "^4.1.0",
+    "@vue/cli-plugin-eslint": "^4.1.0",
+    "@vue/cli-plugin-router": "^4.1.0",
+    "@vue/cli-plugin-vuex": "^4.1.0",
+    "@vue/cli-service": "^4.1.0",
+    "@vue/eslint-config-prettier": "^5.0.0",
+    "babel-eslint": "^10.0.3",
+    "eslint": "^5.16.0",
+    "eslint-plugin-prettier": "^3.1.1",
+    "eslint-plugin-vue": "^5.0.0",
+    "prettier": "^1.19.1",
+    "sass": "^1.23.7",
+    "sass-loader": "^8.0.0",
+    "vue-template-compiler": "^2.6.10"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "@vue/prettier"
+    ],
+    "rules": {
+      "prettier/prettier": [
+        "warn",
+        {
+          "#": "prettier config in here :)",
+          "singleQuote": true,
+          "semi": false,
+          "trailingComma": "none"
+        }
+      ]
+    },
+    "parserOptions": {
+      "parser": "babel-eslint"
+    }
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions"
+  ]
+}

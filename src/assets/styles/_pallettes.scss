@@ -1,0 +1,21 @@
+$primary: #031b4e;
+$primary-invert: findColorInvert($primary);
+$primary-dark: #0a1121;
+
+$light-100: #ffffff;
+$light-200: #f7f9fc;
+$light-300: #edf1f7; // APP BG COLOR
+$light-400: #e4e9f2;
+$light-500: #c5cee0;
+$light-600: #8f9bb3;
+$light-700: #2e3a59;
+$light-800: #222b45;
+$light-900: #1a2138;
+$light-950: #151a30;
+
+// The Shadow Realm
+$text-shadow: 0px 2px 4px rgba(2, 1, 24, 0.466);
+$text-shadow-light: 0px 2px 4px rgba(210, 210, 235, 0.4);
+$shadow-small: 0px 2px 2px rgba(2, 1, 24, 0.25);
+$shadow-medium: 0px 4px 4px rgba(2, 1, 24, 0.25);
+$shadow-large: 0 0.5rem 1rem 0 rgba(44, 51, 73, 0.1);
