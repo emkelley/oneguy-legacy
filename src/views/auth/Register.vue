@@ -97,6 +97,12 @@ export default {
     submit() {
       this.$refs.recaptcha.execute()
     },
+    onCaptchaVerified: function(recaptchaToken) {
+      this.register(recaptchaToken)
+    },
+    onCaptchaExpired: function() {
+      alert('failed captcha')
+    },
     register() {
       firebase
         .auth()
@@ -111,38 +117,6 @@ export default {
         .catch(err => {
           this.error = err.message
         })
-    },
-    onCaptchaVerified: function(recaptchaToken) {
-      this.register()
-        .post('https://vue-recaptcha-demo.herokuapp.com/signup', {
-          email: self.email,
-          password: self.password,
-          recaptchaToken: recaptchaToken
-        })
-        .then(response => {
-          self.sucessfulServerResponse = response.data.message
-        })
-        .catch(err => {
-          self.serverError = getErrorMessage(err)
-
-          //helper to get a displayable message to the user
-          function getErrorMessage(err) {
-            let responseBody
-            responseBody = err.response
-            if (!responseBody) {
-              responseBody = err
-            } else {
-              responseBody = err.response.data || responseBody
-            }
-            return responseBody.message || JSON.stringify(responseBody)
-          }
-        })
-        .then(() => {
-          self.status = ''
-        })
-    },
-    onCaptchaExpired: function() {
-      alert('failed captcha')
     }
   }
 }
