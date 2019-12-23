@@ -109,7 +109,7 @@ export default {
       password: 'password123',
       passwordConfirmation: 'password123',
       errors: [],
-      confirmation: true
+      confirmation: false
     }
   },
   methods: {
@@ -135,9 +135,7 @@ export default {
         .createUserWithEmailAndPassword(this.email, this.password)
         .then(user => {
           if (user.user.emailVerified === false) {
-            user.user.sendEmailVerification().then(function() {
-              console.log('email verification sent to user')
-            })
+            user.user.sendEmailVerification()
           }
           const dateNow = new Date()
           let userId = user.user.uid
