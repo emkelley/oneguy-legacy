@@ -108,9 +108,7 @@ export default {
           profileRef
             .get()
             .then(doc => {
-              if (!doc.exists) {
-                // console.log('No user profile exists')
-              } else {
+              if (doc.exists) {
                 data = doc.data()
                 this.$store.commit('isAuthed', true)
                 this.$store.commit('setProfile', data)
