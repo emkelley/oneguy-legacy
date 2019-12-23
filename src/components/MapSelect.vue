@@ -49,6 +49,7 @@ export default {
   border-radius: 6px;
   box-shadow: $shadow-medium;
   transition: 0.05s all ease-in-out;
+  border: 1px solid $light-500;
   .og-card-header,
   .og-card-footer {
     padding: 1rem;
