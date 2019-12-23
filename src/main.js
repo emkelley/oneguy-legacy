@@ -6,7 +6,6 @@ import Buefy from 'buefy'
 import { firebase } from '@firebase/app'
 import '@firebase/firestore'
 import '@firebase/auth'
-import moment from 'moment'
 
 Vue.config.productionTip = false
 
@@ -14,7 +13,6 @@ Vue.use(Buefy, {
   defaultIconPack: 'fas'
 })
 
-Vue.prototype.moment = moment
 const firebaseConfig = {
   apiKey: 'AIzaSyB0NkfdZpOo001ixL3yJT6y24udUwuGfNw',
   authDomain: 'oneguyio.firebaseapp.com',

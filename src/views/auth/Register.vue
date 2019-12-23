@@ -11,7 +11,7 @@
             Create A New Account
           </strong>
         </div>
-        <div class="content">
+        <div v-if="!confirmation" class="content">
           <form method="POST" action="#">
             <input
               id="name"
@@ -78,6 +78,18 @@
             </div>
           </b-notification>
         </div>
+        <div v-else class="content has-text-centered va">
+          <i class="fad fa-user-check fa-4x" style="color: #031b4e"></i>
+          <h2 class="subtitle">Welcome Aboard!</h2>
+          <p>
+            We've just sent you over a confirmation email to activate your
+            account and to allow you to download cinematics.
+          </p>
+          <br />
+          <router-link to="/login" class="button is-primary is-outlined"
+            >Back to Login</router-link
+          >
+        </div>
       </div>
     </div>
   </div>
@@ -97,7 +109,7 @@ export default {
       password: 'password123',
       passwordConfirmation: 'password123',
       errors: [],
-      confirmModal: false
+      confirmation: true
     }
   },
   methods: {
@@ -140,7 +152,8 @@ export default {
               username: this.name
             })
             .then(() => {
-              this.confirmModal = true
+              this.isLoading = false
+              this.confirmation = true
             })
         })
         .catch(err => {
@@ -174,7 +187,6 @@ $grey-lighter: hsl(0, 0%, 86%);
   background-repeat: no-repeat;
 
   backdrop-filter: saturate(200%) blur(10px) !important;
-
   .login-card {
     background: #fff;
     width: 24rem;
@@ -196,7 +208,6 @@ $grey-lighter: hsl(0, 0%, 86%);
     .content {
       padding: 3rem 2.5rem 2rem;
     }
-
     #email,
     #password,
     #passwordConfirmation,
@@ -256,6 +267,10 @@ $grey-lighter: hsl(0, 0%, 86%);
       }
     }
   }
+}
+
+.fa {
+  color: $primary !important;
 }
 .modal {
   background: white;

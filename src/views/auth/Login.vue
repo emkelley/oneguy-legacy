@@ -15,7 +15,7 @@
           <br />
           <span v-if="verificationSent">Sent!</span>
         </p>
-        <div class="content">
+        <div class="content" style="padding-top: 10px;">
           <form method="POST" action="#">
             <input
               id="email"
@@ -55,7 +55,10 @@
               >Login</a
             >
           </form>
-          <p class="help">{{ error }}</p>
+          <br />
+          <p class="help">
+            <strong style="color: red">{{ error }}</strong>
+          </p>
         </div>
       </div>
     </div>
@@ -112,8 +115,10 @@ export default {
                 this.$store.commit('isAuthed', true)
                 this.$store.commit('setProfile', data)
                 this.$store.commit('setUserId', userId)
-                this.loginStatus = 'Thank you for logging in. Redirecting...'
-                this.$router.push({ name: 'cinematics' })
+                setTimeout(() => {
+                  this.loginStatus = 'Thank you for logging in. Redirecting...'
+                  this.$router.push({ name: 'cinematics' })
+                }, 750)
               }
             })
             .catch(err => {
@@ -121,7 +126,35 @@ export default {
             })
         })
         .catch(err => {
-          this.error = err.message
+          let code = err.code
+          switch (code) {
+            case 'auth/invalid-email':
+              this.loginStatus = 'Welcome to OneGuy Cinematics'
+              this.error = 'Invalid Email. Check your spelling and try again.'
+              break
+            case 'auth/wrong-password':
+              this.loginStatus = 'Welcome to OneGuy Cinematics'
+              this.error =
+                'Invalid Password. Check your spelling and try again.'
+              break
+            case 'auth/user-disabled':
+              this.loginStatus = 'Welcome to OneGuy Cinematics'
+              this.error = 'This account has been disabled by an administrator.'
+              break
+            case 'auth/user-not-found':
+              this.loginStatus = 'Welcome to OneGuy Cinematics'
+              this.error = 'No account found with this email.'
+              break
+            case 'auth/too-many-requests':
+              this.loginStatus = 'Welcome to OneGuy Cinematics'
+              this.error =
+                'This account has been disabled due to excessive sign on attempts. Please try again later.'
+              break
+            default:
+              this.loginStatus = 'Welcome to OneGuy Cinematics'
+              this.error =
+                'An error occurred while signing in. Please try again later.'
+          }
         })
     },
     sendVerificationEmail() {
