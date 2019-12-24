@@ -1,12 +1,19 @@
 <template>
   <main>
-    <section v-if="!mapData" class="game-content">
-      <section class="hero is-medium is-light"></section>
+    <section v-if="loading" class="game-content">
+      <section class="hero is-fullheight is-light">
+        <div class="hero-body">
+          <div class="container has-text-centered">
+            <i class="fal fa-spinner-third fa-spin fa-2x"></i><br /><br />
+            <h1 class="title">Fetching Cinematics Data...</h1>
+          </div>
+        </div>
+      </section>
       <section class="body">
         <div class="container"><br /><br /><br /></div>
       </section>
     </section>
-    <section v-if="mapData" class="game-content">
+    <section v-if="!loading" class="game-content">
       <section
         class="hero is-medium "
         :style="{ 'background-image': 'url(' + mapData.poster + ')' }"
@@ -21,17 +28,63 @@
         </div>
       </section>
       <section class="body">
-        <div class="container">
+        <div class="container map-container">
           <br /><br />
           <div class="columns">
-            <div class="column is-6"></div>
             <div class="column is-6">
-              <label for="">Map Name:</label>
-              <h1 class="title">{{ mapData.mapName }}</h1>
+              <iframe
+                v-if="yt != undefined"
+                id="ytplayer"
+                type="text/html"
+                width="640"
+                height="360px"
+                :src="yt"
+                frameborder="0"
+              ></iframe>
+            </div>
+            <div class="column is-6">
+              <nav class="level">
+                <div class="level-left">
+                  <div class="level-item">
+                    <div>
+                      <p class="heading">Map Name</p>
+                      <p class="title">{{ mapData.mapName }}</p>
+                    </div>
+                  </div>
+                  <div class="level-item" style="margin-left: 2rem;">
+                    <div>
+                      <p class="heading">Game</p>
+                      <p class="title">{{ game }}</p>
+                    </div>
+                  </div>
+                </div>
+              </nav>
               <label for="">Map Description:</label>
-              <h1 class="title">{{ wikiData }}</h1>
-              <label for="">Total Cinematics:</label>
-              <h1 class="title">{{ cinematics.length }}</h1>
+              <p style="margin-top: 5px">{{ mapData.description }}</p>
+              <br />
+
+              <nav class="level">
+                <div class="level-item has-text-centered">
+                  <div>
+                    <p class="heading">Total Cinematics</p>
+                    <p class="title">{{ cinematics.length }}</p>
+                  </div>
+                </div>
+                <div class="level-item has-text-centered">
+                  <div>
+                    <p class="heading">Added to Database</p>
+                    <p class="title">
+                      {{ mapData.addedToDb.toDate() | moment('MM/DD/YY') }}
+                    </p>
+                  </div>
+                </div>
+                <div class="level-item has-text-centered">
+                  <div>
+                    <p class="heading">All Time Downloads</p>
+                    <p class="title">8,239</p>
+                  </div>
+                </div>
+              </nav>
             </div>
           </div>
           <br /><br /><br />
@@ -50,12 +103,16 @@
                   >
                 </template>
                 <template v-slot:foot-left>
-                  <p class="subtitle is-5">
+                  <p v-if="!isAuthed">
+                    Log in to download cinematics.
+                  </p>
+                  <p v-if="isAuthed" class="subtitle is-5">
                     <strong>Resolution:</strong> 1440p
                   </p>
                 </template>
                 <template v-slot:foot-right>
                   <a
+                    v-if="isAuthed"
                     :href="cinematic.downloadUrl"
                     class="button is-primary is-outlined"
                     download
@@ -67,6 +124,7 @@
             </article>
           </div>
         </div>
+        <FeaturedMini v-if="featured" :featured="featured" />
       </section>
     </section>
   </main>
@@ -74,22 +132,42 @@
 <script>
 import { db } from '@/main'
 import MapSelect from '@/components/MapSelect.vue'
+import FeaturedMini from '@/components/FeaturedMini.vue'
 import _ from 'lodash'
-import axios from 'axios'
+import { mapGetters } from 'vuex'
 export default {
   components: {
-    MapSelect
+    MapSelect,
+    FeaturedMini
   },
   data() {
     return {
-      loading: false,
+      loading: true,
       mapData: undefined,
       cinematics: [],
       isFullPage: false,
       errorCode: undefined,
       status: '',
-      wikiData: undefined
+      wikiData: undefined,
+      featured: undefined
     }
+  },
+  computed: {
+    yt: function() {
+      if (this.mapData) {
+        let url =
+          'https://www.youtube.com/embed/' +
+          this.mapData.yt +
+          '?autoplay=0&mute=1&origin=https://oneguy.io'
+        return url
+      } else {
+        return undefined
+      }
+    },
+    game() {
+      return _.startCase(this.$router.currentRoute.params.gameId)
+    },
+    ...mapGetters(['isAuthed'])
   },
   mounted() {
     this.fetchMapData()
@@ -124,22 +202,29 @@ export default {
           cinematicsArray.push(doc.data())
         })
         this.cinematics = _.clone(cinematicsArray)
-        this.fetchWikiData()
+        setTimeout(() => {
+          this.loading = false
+          this.fetchFeaturedCinematics()
+        }, 100)
       })
     },
-    fetchWikiData() {
-      let url = 'https://overwatch.fandom.com/api/v1/Articles/AsSimpleJson?id='
-      let id = this.mapData.wiki.toString()
-      let builtUrl = url + id
-
-      axios.get(builtUrl).then(response => (this.wikiData = response))
+    fetchFeaturedCinematics() {
+      let ref = db.collection('featured')
+      let gamesArray = []
+      ref.get().then(snapshot => {
+        snapshot.forEach(doc => {
+          gamesArray.push(doc.data())
+        })
+        if (gamesArray.length > 0) {
+          this.featured = _.clone(gamesArray)
+        }
+      })
     }
   }
 }
 </script>
 <style lang="scss" scoped>
 .body {
-  height: 80vh;
   background: $light-300;
 }
 .game-content {
@@ -161,5 +246,17 @@ hr {
 }
 .empty {
   padding-top: 52px;
+}
+label {
+  font-weight: bold;
+}
+iframe {
+  height: 360px !important;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid $primary;
+}
+.map-container {
+  padding-bottom: 15rem;
 }
 </style>

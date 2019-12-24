@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <BaseNavbar v-if="currentRoute !== 'login'" />
-    <router-view />
+    <router-view :key="$route.fullPath" />
     <BaseFooter />
   </div>
 </template>

@@ -6,8 +6,11 @@ import Buefy from 'buefy'
 import { firebase } from '@firebase/app'
 import '@firebase/firestore'
 import '@firebase/auth'
+import moment from 'moment'
 
 Vue.config.productionTip = false
+Vue.prototype.moment = moment
+Vue.use(require('vue-moment'))
 
 Vue.use(Buefy, {
   defaultIconPack: 'fas'
