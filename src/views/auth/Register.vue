@@ -12,7 +12,7 @@
           </strong>
         </div>
         <div v-if="!confirmation" class="content">
-          <form method="POST" action="#">
+          <form method="POST" @keydown.enter="validate" action="#">
             <input
               id="name"
               v-model="name"
@@ -52,31 +52,16 @@
               placeholder="Confirm Password"
               required
             />
-            <a
-              class="button is-primary login-btn is-medium"
+            <button
+              type="submit"
+              class="button is-primary login-btn is-medium is-outlined"
               :class="{ 'is-loading': isLoading }"
               :disabled="isLoading"
-              @click="validate()"
-              >Register</a
             >
+              Register
+            </button>
           </form>
           <br />
-
-          <b-notification v-if="confirmModal" type="is-success">
-            <div class="columns">
-              <div class="column va has-text-centered">
-                <p class="heading">
-                  <i class="fad fa-user-check fa-lg"></i>&ensp;<strong
-                    >Check your email</strong
-                  >
-                </p>
-                <p>
-                  Success! We've sent over a confirmation email to activate your
-                  account.
-                </p>
-              </div>
-            </div>
-          </b-notification>
         </div>
         <div v-else class="content has-text-centered va">
           <i class="fad fa-user-check fa-4x" style="color: #031b4e"></i>
@@ -104,10 +89,10 @@ export default {
   data() {
     return {
       isLoading: false,
-      name: 'juanguy',
-      email: 'e.kelley94@gmail.com',
-      password: 'password123',
-      passwordConfirmation: 'password123',
+      name: '',
+      email: '',
+      password: '',
+      passwordConfirmation: '',
       errors: [],
       confirmation: false
     }
@@ -128,6 +113,7 @@ export default {
       if (this.errors.length === 0) {
         this.register()
       }
+      // https://open.kickbox.com/v1/disposable/mailinator.com returns disposable true
     },
     register() {
       firebase
@@ -240,29 +226,6 @@ $grey-lighter: hsl(0, 0%, 86%);
     .options {
       color: $grey-light;
       margin-bottom: 1.5rem;
-    }
-
-    button {
-      cursor: pointer;
-      font-size: 1.2rem;
-      color: $primary;
-      border-radius: 4rem;
-      display: block;
-      width: 100%;
-      background: transparent;
-      border: 2px solid $primary;
-      padding: 0.9rem 0 1.1rem;
-      transition: color 0.5s, border-color 0.5s;
-
-      &:hover,
-      &:focus {
-        color: darken($primary, 10%);
-        border-color: darken($primary, 10%);
-      }
-
-      &:active {
-        transform: translateY(1px);
-      }
     }
   }
 }

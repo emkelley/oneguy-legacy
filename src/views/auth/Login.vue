@@ -76,7 +76,7 @@ export default {
   data() {
     return {
       email: 'hello@emk.dev',
-      password: 'Ek206045E$k',
+      password: '8@EXZQKEEc0o75^4oaTkyA2Q0',
       authenticatedUser: null,
       isLoading: false,
       loginStatus: 'Welcome to OneGuy Cinematics',

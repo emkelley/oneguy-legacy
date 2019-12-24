@@ -30,7 +30,7 @@ export default {
 }
 
 // reset offset of fontawesome icons
-.fa {
+.fad {
   transform: translateY(-4%);
 }
 .og-section {

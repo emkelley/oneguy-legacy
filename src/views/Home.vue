@@ -15,9 +15,12 @@
             100% Royalty-Free Video Game <br />
             <span>Cinematics</span> and <span>Photography</span> <br />
             <br />
-            <button class="button is-primary is-large cta-btn">
+            <router-link
+              to="/register"
+              class="button is-primary is-large cta-btn"
+            >
               Create an Account
-            </button>
+            </router-link>
           </h1>
         </div>
         <div class="column is-6">

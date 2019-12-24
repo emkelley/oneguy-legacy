@@ -47,7 +47,7 @@ export default {
 <style lang="scss" scoped>
 .og-card {
   border-radius: 6px;
-  box-shadow: $shadow-medium;
+  box-shadow: $shadow-small;
   transition: 0.05s all ease-in-out;
   border: 1px solid $light-500;
   .og-card-header,
@@ -70,7 +70,7 @@ export default {
   }
   .og-card-body {
     margin-top: -50px;
-    min-height: 300px;
+    min-height: 275px;
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
