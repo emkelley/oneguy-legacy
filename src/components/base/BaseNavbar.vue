@@ -47,8 +47,8 @@
             aria-role="menu"
           >
             <a class="navbar-item" slot="trigger" role="button">
-              <i class="fad fa-bars"></i>
-              <span style="padding-left: 10px;">Menu</span>
+              <span style="padding-right: 10px; ">Menu</span>
+              <i class="fad fa-bars" style="transform: translateY(10%);"></i>
             </a>
 
             <b-dropdown-item class="va" custom aria-role="menuitem">
@@ -57,7 +57,18 @@
             <hr class="dropdown-divider" />
             <b-dropdown-item class="va" value="home" aria-role="menuitem">
               <router-link to="/account">
-                <i class="fad fa-cogs"></i>&emsp; Account Settings
+                <i class="fal fa-cogs"></i>&emsp; My Account
+              </router-link>
+            </b-dropdown-item>
+            <b-dropdown-item class="va" value="home" aria-role="menuitem">
+              <router-link to="/account">
+                <i class="fal fa-comment-smile"></i>&emsp; Give Feedback
+              </router-link>
+            </b-dropdown-item>
+            <b-dropdown-item class="va" value="home" aria-role="menuitem">
+              <router-link to="/account">
+                <i class="fal fa-comment-alt-exclamation"></i>&emsp; Request
+                Cinematics
               </router-link>
             </b-dropdown-item>
             <b-dropdown-item
@@ -66,6 +77,18 @@
               aria-role="menuitem"
             >
               <i class="fad fa-sign-out"></i>&emsp; &emsp; Log Out
+            </b-dropdown-item>
+            <hr class="dropdown-divider" v-if="userProfile.isAdmin" />
+            <b-dropdown-item
+              v-if="userProfile.isAdmin"
+              class="va"
+              value="home"
+              aria-role="menuitem"
+            >
+              <router-link to="/admin" style="color: red;">
+                <i class="fad fa-user-shield"></i>&emsp;
+                <strong>Admin Panel</strong>
+              </router-link>
             </b-dropdown-item>
           </b-dropdown>
           <div class="navbar-item">
