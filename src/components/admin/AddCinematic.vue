@@ -204,7 +204,6 @@ export default {
         }
       }
       if (!file) {
-        console.log('no file')
         return
       } else {
         axios.put(url, file, config).then(
