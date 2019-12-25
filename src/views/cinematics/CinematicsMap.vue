@@ -70,11 +70,14 @@
                     <p class="title">{{ cinematics.length }}</p>
                   </div>
                 </div>
-                <div class="level-item has-text-centered">
+                <div
+                  v-if="mapData.addedToDb"
+                  class="level-item has-text-centered"
+                >
                   <div>
                     <p class="heading">Added to Database</p>
                     <p class="title">
-                      {{ mapData.addedToDb.toDate() | moment('MM/DD/YY') }}
+                      {{ mapData.addedToDb | moment('MMM D, YYYY') }}
                     </p>
                   </div>
                 </div>
@@ -174,7 +177,15 @@ export default {
   },
   methods: {
     fetchMapData() {
-      let map = this.$router.currentRoute.params.mapId
+      let routerMap = this.$router.currentRoute.params.mapId
+      let map
+      // Guard for previous url pattern
+      if (map === 'ow') {
+        map = 'overwatch'
+      } else {
+        map = routerMap
+      }
+
       let mapRef = db.collection('maps').doc(map)
       mapRef
         .get()
@@ -196,6 +207,7 @@ export default {
         .collection('maps')
         .doc(map)
         .collection('cinematics')
+        .orderBy('number', 'asc')
       let cinematicsArray = []
       ref.get().then(snapshot => {
         snapshot.forEach(doc => {
@@ -252,7 +264,7 @@ label {
 }
 iframe {
   height: 360px !important;
-  border-radius: 10px;
+  border-radius: 6px;
   overflow: hidden;
   border: 1px solid $primary;
 }

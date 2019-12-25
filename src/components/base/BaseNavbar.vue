@@ -55,17 +55,17 @@
               Logged as <b>{{ userProfile.email }}</b>
             </b-dropdown-item>
             <hr class="dropdown-divider" />
-            <b-dropdown-item class="va" value="home" aria-role="menuitem">
+            <b-dropdown-item class="va" aria-role="menuitem">
               <router-link to="/account">
                 <i class="fal fa-cogs"></i>&emsp; My Account
               </router-link>
             </b-dropdown-item>
-            <b-dropdown-item class="va" value="home" aria-role="menuitem">
+            <b-dropdown-item class="va" aria-role="menuitem">
               <router-link to="/account">
                 <i class="fal fa-comment-smile"></i>&emsp; Give Feedback
               </router-link>
             </b-dropdown-item>
-            <b-dropdown-item class="va" value="home" aria-role="menuitem">
+            <b-dropdown-item class="va" aria-role="menuitem">
               <router-link to="/account">
                 <i class="fal fa-comment-alt-exclamation"></i>&emsp; Request
                 Cinematics
@@ -82,7 +82,6 @@
             <b-dropdown-item
               v-if="userProfile.isAdmin"
               class="va"
-              value="home"
               aria-role="menuitem"
             >
               <router-link to="/admin" style="color: red;">

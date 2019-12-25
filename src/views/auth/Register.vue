@@ -84,6 +84,7 @@
 import { db } from '@/main'
 import firebase from '@firebase/app'
 import '@firebase/auth'
+import { mapGetters } from 'vuex'
 export default {
   components: {},
   data() {
@@ -95,6 +96,14 @@ export default {
       passwordConfirmation: '',
       errors: [],
       confirmation: false
+    }
+  },
+  computed: {
+    ...mapGetters(['isAuthed', 'userId', 'userProfile'])
+  },
+  created() {
+    if (this.isAuthed) {
+      this.$router.replace('/')
     }
   },
   methods: {

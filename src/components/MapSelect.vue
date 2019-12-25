@@ -1,9 +1,20 @@
 <template>
   <div class="og-card">
     <div class="og-card-header">
-      <p class="subtitle is-5">
-        <slot name="header"></slot>
-      </p>
+      <nav class="level is-mobile">
+        <div class="level-left">
+          <div class="level-item">
+            <p class="subtitle is-5">
+              <slot name="header"></slot>
+            </p>
+          </div>
+        </div>
+        <div class="level-right">
+          <div class="level-item">
+            <slot name="availability"></slot>
+          </div>
+        </div>
+      </nav>
     </div>
     <div
       class="og-card-body"
@@ -47,9 +58,9 @@ export default {
 <style lang="scss" scoped>
 .og-card {
   border-radius: 6px;
-  box-shadow: $shadow-small;
+  box-shadow: $shadow-large;
   transition: 0.05s all ease-in-out;
-  border: 1px solid $light-500;
+  border: 1px solid $light-800;
   .og-card-header,
   .og-card-footer {
     padding: 1rem;
@@ -62,15 +73,15 @@ export default {
     }
   }
   .og-card-header {
-    background: rgba($color: #fff, $alpha: 0.6);
-    backdrop-filter: saturate(200%) blur(10px) !important;
+    background: rgba($color: #fff, $alpha: 0.5);
+    backdrop-filter: saturate(200%) blur(5px) !important;
     border-top-right-radius: 6px;
     border-top-left-radius: 6px;
     font-family: nunito-sans, sans-serif !important;
   }
   .og-card-body {
-    margin-top: -50px;
-    min-height: 275px;
+    margin-top: -57px;
+    min-height: 250px;
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;

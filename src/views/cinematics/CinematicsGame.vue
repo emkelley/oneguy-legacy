@@ -37,19 +37,28 @@
               class="column is-4"
             >
               <MapSelect :url="cinematic.poster">
+                <template v-slot:availability>
+                  <span class="tag is-light">{{
+                    cinematic.active ? 'Available' : 'Coming Soon'
+                  }}</span>
+                </template>
                 <template v-slot:header>
                   <strong>{{ cinematic.mapName }}</strong>
                 </template>
-                <template v-slot:foot-left>
+                <template v-if="cinematic.active" v-slot:foot-left>
                   <p class="subtitle is-5">
-                    <strong>{{ cinematic.count }}</strong> Cinematics
+                    <strong>{{ cinematic.count || '0' }}</strong> Cinematics
                   </p>
                 </template>
                 <template v-slot:foot-right>
                   <router-link
+                    v-if="cinematic.active"
                     :to="cinematic.url"
                     class="button is-primary is-outlined"
                     >View Cinematics</router-link
+                  >
+                  <a v-else disabled class="button is-primary is-outlined"
+                    >Coming Soon</a
                   >
                 </template>
               </MapSelect>
