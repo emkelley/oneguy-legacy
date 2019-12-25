@@ -206,7 +206,6 @@ export default {
         }
       }
       if (!file) {
-        console.log('no file')
         return
       } else {
         axios.put(url, file, config).then(
@@ -245,7 +244,6 @@ export default {
       db.collection('maps')
         .doc(finalMapInfo.slug)
         .set(finalMapInfo, { merge: true })
-        .then(console.log('Added document'))
     },
     convertToKebabCase(string) {
       return string.replace(/\s+/g, '-').toLowerCase()
