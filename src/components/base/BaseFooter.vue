@@ -1,13 +1,19 @@
 <template>
   <footer class="va has-text-centered">
     <p class="">
-      OG Cinematics is made with
-      <i class="fal fa-heart"></i> and <i class="fal fa-mug-hot"></i> by
-      <a href="https://twitter.com/llOneGuyll" target="_blank">OneGuy</a>
+      OneGuy Cinematics is made with
+      <i class="fal fa-heart"></i> for the YouTube & Twitch Community
     </p>
-    <a href="https://emk.dev" target="_blank" class="help"
-      >ERICMKELLEY - {{ year }}</a
-    >
+    <br />
+    <p>
+      <a href="https://twitter.com/llOneGuyll" target="_blank" class="help"
+        >@llOneGuyll</a
+      >
+      <a href="https://emk.dev" target="_blank" class="help"
+        >ERICMKELLEY - {{ year }}</a
+      >
+    </p>
+    <br />
   </footer>
 </template>
 
@@ -51,7 +57,7 @@ export default {
 
 <style lang="scss" scoped>
 footer {
-  height: 100px;
+  padding-top: 25px;
   background: $primary-dark;
   color: #dfdfdf;
   a {

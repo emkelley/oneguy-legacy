@@ -2,9 +2,9 @@
   <main class="va">
     <center>
       <div class="error-container has-text-centered">
-        <h1 class="title">404</h1>
+        <h1 class="title">403</h1>
         <h2 class="subtitle">
-          The page you were looking for doesn't exist.
+          You don't have permissions to access this page.
         </h2>
         <router-link to="/" class="button is-primary is-rounded"
           >Back Home</router-link

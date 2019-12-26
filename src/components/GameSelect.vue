@@ -1,16 +1,44 @@
 <template>
-  <div class="column is-6 has-text-centered">
-    <div
-      class="wrapper game"
-      :style="{ 'background-image': 'url(' + thumbnail + ')' }"
-    >
-      <router-link to="/cinematics/overwatch" class="overlay va">
-        <h1 class="title">
-          <slot name="title"></slot>
-        </h1>
-      </router-link>
+  <article class="article column is-6 has-text-centered">
+    <div class="columns is-multiline wrapper">
+      <div
+        class="column is-12 img game-selection "
+        :style="{ 'background-image': 'url(' + thumbnail + ')' }"
+      ></div>
+      <div class="column va">
+        <br />
+        <nav class="level">
+          <div class="level-item has-text-centered">
+            <div>
+              <p class="heading">Game</p>
+              <p class="title">
+                <slot name="title"></slot>
+              </p>
+            </div>
+          </div>
+          <div class="level-item has-text-centered">
+            <div>
+              <p class="heading">Maps</p>
+              <p class="title">21</p>
+            </div>
+          </div>
+          <div class="level-item has-text-centered">
+            <div>
+              <p class="heading">Cinematics</p>
+              <p class="title">480</p>
+            </div>
+          </div>
+        </nav>
+        <h1 class="title"></h1>
+        <router-link
+          to="/cinematics/overwatch"
+          class="button is-primary is-medium"
+        >
+          View Cinematics
+        </router-link>
+      </div>
     </div>
-  </div>
+  </article>
 </template>
 
 <script>
@@ -34,34 +62,22 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.game {
-  background-position: center;
+.article {
+  padding: 1.5rem !important;
+}
+.img {
   background-size: cover;
+  background-position: center;
   background-repeat: no-repeat;
-  border-radius: 6px;
-  min-height: 200px;
-  width: 100%;
+}
+.game-selection {
+  height: 200px;
+  .button {
+    max-width: 150px;
+  }
+}
+.wrapper {
   border: 1px solid $primary;
-  &:hover {
-    .overlay {
-      display: inline-flex;
-      cursor: pointer;
-    }
-  }
-  .overlay {
-    display: none;
-    border-radius: 6px;
-    padding: 1rem;
-    background: rgba($color: $primary, $alpha: 0.75);
-    backdrop-filter: blur(5px) saturate(200%);
-    min-height: 200px;
-    width: 100%;
-    .title {
-      color: white;
-    }
-    .button {
-      width: 150px;
-    }
-  }
+  border-radius: 6px;
 }
 </style>

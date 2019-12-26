@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import firebase from '@firebase/app'
 import '@firebase/auth'
+import store from '../store'
 
 Vue.use(VueRouter)
 
@@ -67,7 +68,8 @@ const router = new VueRouter({
       component: () =>
         import(/* webpackChunkName: "Account" */ '@/views/admin/Admin.vue'),
       meta: {
-        requiresAuth: true
+        requiresAuth: true,
+        requiresAdmin: true
       }
     },
     {
@@ -76,15 +78,24 @@ const router = new VueRouter({
       component: () =>
         import(/* webpackChunkName: "Error404" */ '@/views/error/404.vue')
     },
+    {
+      path: '/error/403',
+      name: '403',
+      component: () =>
+        import(/* webpackChunkName: "Error403" */ '@/views/error/403.vue')
+    },
     { path: '*', redirect: '/error/404' }
   ]
 })
-
+// )
 router.beforeEach((to, from, next) => {
   const currentUser = firebase.auth().currentUser
   const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
+  const requiresAdmin = to.matched.some(record => record.meta.requiresAdmin)
 
   if (requiresAuth && !currentUser) next('login')
+  else if (requiresAdmin && !store.state.userProfile.isAdmin)
+    next({ name: '403' })
   else next()
 })
 

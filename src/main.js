@@ -7,6 +7,9 @@ import { firebase } from '@firebase/app'
 import '@firebase/firestore'
 import '@firebase/auth'
 import moment from 'moment'
+import vueHeadful from 'vue-headful'
+
+Vue.component('vue-headful', vueHeadful)
 
 Vue.config.productionTip = false
 Vue.prototype.moment = moment

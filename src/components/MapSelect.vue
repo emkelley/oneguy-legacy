@@ -60,7 +60,7 @@ export default {
   border-radius: 6px;
   box-shadow: $shadow-large;
   transition: 0.05s all ease-in-out;
-  border: 1px solid $light-800;
+  border: 1px solid $light-600;
   .og-card-header,
   .og-card-footer {
     padding: 1rem;
@@ -89,7 +89,7 @@ export default {
     border-top-left-radius: 6px;
   }
   .og-card-footer {
-    background: rgba($color: #fff, $alpha: 0.8);
+    background: $light-400;
     border-bottom-right-radius: 6px;
     border-bottom-left-radius: 6px;
   }

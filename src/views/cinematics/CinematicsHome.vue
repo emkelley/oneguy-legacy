@@ -1,5 +1,6 @@
 <template>
   <main>
+    <vue-headful title="Avalilable Cinematics - OneGuy Cinematics" />
     <section class="hero is-medium ">
       <div class="hero-body">
         <div class="container has-text-centered">
@@ -29,20 +30,8 @@
             :key="game.id"
             :cover="game.cover"
           >
-            <template v-slot:title> View</template>
+            <template v-slot:title> {{ game.name }}</template>
           </GameSelect>
-
-          <div v-if="currentGames.length > 0" class="column">
-            <div class="wrapper coming-soon va has-text-centered">
-              <h2 class="subtitle">More Coming Soon</h2>
-              <p>
-                Request another game here: <br />
-                <router-link to="/account/request"
-                  >Cinematic Request Form</router-link
-                >
-              </p>
-            </div>
-          </div>
         </div>
       </div>
     </section>
@@ -103,7 +92,6 @@ export default {
 .games {
   .column {
     padding: 1rem;
-
     .coming-soon {
       border-radius: 10px;
       min-height: 200px;

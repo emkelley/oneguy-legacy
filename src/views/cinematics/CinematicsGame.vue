@@ -1,5 +1,9 @@
 <template>
   <main>
+    <vue-headful
+      v-if="gameData"
+      :title="gameData.name + ' - OneGuy Cinematics'"
+    />
     <section v-if="!gameData" class="game-content">
       <section class="hero is-medium is-light"></section>
       <section class="body">

@@ -1,17 +1,18 @@
 <template>
   <section class="column add-map">
-    <h1 class="title">Add New Map</h1>
-    <hr />
+    <h1 class="title"><i class="fad fa-folder-plus"></i>&emsp; Add New Map</h1>
+    <hr class="title-hr" />
     <br />
     <div class="columns">
-      <div class="column is-10 is-offset-1">
+      <div class="column is-12">
         <div class="form-wrapper">
           <!-- <form
             method="POST"
             v-on:submit.prevent="uploadToCdn"
             @keydown.enter="uploadToCdn"
           > -->
-          <h3 class="heading">General Information</h3>
+          <br />
+          <h2 class="subtitle">General Information</h2>
           <hr />
           <br />
           <b-field grouped>
@@ -92,25 +93,32 @@
           </b-field>
           <br />
           <br />
-          <h3 class="heading">Media</h3>
+          <h2 class="subtitle">Add Media</h2>
           <hr />
           <div class="columns">
-            <div class="column is-4 va">
-              <label style="font-weight: bold">Upload Map Poster Image</label
-              ><br />
-              <b-field class="file">
-                <b-upload v-model="file">
-                  <a class="button is-primary">
-                    <b-icon icon="upload"></b-icon>
-                    <span>Click to upload</span>
-                  </a>
-                </b-upload>
-                <span class="file-name" v-if="file">
-                  {{ file.name }}
-                </span>
-              </b-field>
+            <div class="column is-4">
+              <p style="font-weight: bold">
+                Upload Map Poster Image:
+              </p>
+              <br />
+              <div class="upload-btn va">
+                <b-field class="file">
+                  <b-upload v-model="file">
+                    <a class="button is-primary">
+                      <b-icon icon="upload"></b-icon>
+                      <span>Click to upload</span>
+                    </a>
+                  </b-upload>
+                  <span class="file-name" v-if="file">
+                    {{ file.name }}
+                  </span>
+                </b-field>
+              </div>
             </div>
-            <div class="column ">
+            <div class="column has-text-centered">
+              <p style="font-weight: bold">
+                Preview:
+              </p>
               <div id="preview">
                 <img width="100%" v-if="previewUrl" :src="previewUrl" />
               </div>
@@ -246,19 +254,30 @@ export default {
         .set(finalMapInfo, { merge: true })
     },
     convertToKebabCase(string) {
-      return string.replace(/\s+/g, '-').toLowerCase()
+      return string
+        .replace(/[^\w\s]|_/g, '')
+        .replace(/\s+/g, ' ')
+        .replace(/\s+/g, '-')
+        .toLowerCase()
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
+.fad {
+  color: $primary;
+}
 .add-map {
   margin-bottom: 15rem;
+  padding-left: 5rem;
 }
 .title {
   font-size: 1.4rem;
   margin-bottom: 5px;
+}
+.subtitle {
+  margin-bottom: 12px;
 }
 h3.heading {
   color: $primary;

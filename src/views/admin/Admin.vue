@@ -1,5 +1,6 @@
 <template>
   <div id="admin">
+    <vue-headful title="Admin - OneGuy Cinematics" />
     <section class="hero is-primary is-bold">
       <div class="hero-body">
         <div class="container has-text-centered">
@@ -15,7 +16,7 @@
           <div class="column is-2">
             <aside class="menu">
               <p class="menu-label">
-                App Settings
+                App
               </p>
               <ul class="menu-list">
                 <li>
@@ -24,6 +25,11 @@
                     class="list-link"
                     @click="setActiveTab('general')"
                     >General</a
+                  >
+                </li>
+                <li>
+                  <a id="token" class="list-link" @click="setActiveTab('token')"
+                    >Generate CDN Tokens</a
                   >
                 </li>
               </ul>
@@ -91,6 +97,7 @@
           </div>
           <AddMap v-if="activeTab == 'addMap'" />
           <AddCinematic v-if="activeTab == 'addCinematic'" />
+          <CreateFileToken v-if="activeTab == 'token'" />
         </div>
       </div>
     </section>
@@ -100,7 +107,9 @@
 <script>
 import AddMap from '@/components/admin/AddMap.vue'
 import AddCinematic from '@/components/admin/AddCinematic.vue'
+import CreateFileToken from '@/components/admin/CreateFileToken.vue'
 import { db } from '@/main'
+import { mapGetters } from 'vuex'
 export default {
   data() {
     return {
@@ -109,7 +118,17 @@ export default {
   },
   components: {
     AddMap,
-    AddCinematic
+    AddCinematic,
+    CreateFileToken
+  },
+  computed: {
+    ...mapGetters(['userProfile'])
+  },
+  created() {
+    if (!this.userProfile.isAdmin) {
+      console.log('not admin')
+      this.$router.push({ name: '403' })
+    }
   },
   methods: {
     uploadData() {
@@ -142,6 +161,7 @@ export default {
 <style lang="scss" scoped>
 #admin {
   padding-top: 52px;
+  background-color: $light-300;
 }
 .wrapper {
   min-height: 80vh;

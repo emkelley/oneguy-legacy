@@ -1,5 +1,9 @@
 <template>
   <main>
+    <vue-headful
+      v-if="mapData"
+      :title="mapData.mapName + ' - OneGuy Cinematics'"
+    />
     <section v-if="loading" class="game-content">
       <section class="hero is-fullheight is-light">
         <div class="hero-body">
@@ -20,112 +24,126 @@
       >
         <div class="hero-body">
           <div class="container has-text-centered">
-            <h1 class="title">{{ mapData.mapName }} Cinematics</h1>
-            <h2 class="subtitle">
-              Browse below for available {{ mapData.mapName }} Cinematics
-            </h2>
+            <center>
+              <div
+                v-if="heroTitleLength"
+                class="title-card va"
+                :style="{ width: heroTitleLength + 'px' }"
+              >
+                <h2 class="subtitle">{{ mapData.game }}</h2>
+                <center><hr /></center>
+                <h1 class="title">{{ mapData.mapName }}</h1>
+              </div>
+            </center>
           </div>
         </div>
       </section>
       <section class="body">
-        <div class="container map-container">
+        <div class="map-container">
           <br /><br />
-          <div class="columns">
-            <div class="column is-6">
-              <iframe
-                v-if="yt != undefined"
-                id="ytplayer"
-                type="text/html"
-                width="640"
-                height="360px"
-                :src="yt"
-                frameborder="0"
-              ></iframe>
-            </div>
-            <div class="column is-6">
-              <nav class="level">
-                <div class="level-left">
-                  <div class="level-item">
-                    <div>
-                      <p class="heading">Map Name</p>
-                      <p class="title">{{ mapData.mapName }}</p>
+          <div class="container map-info">
+            <div class="columns">
+              <div class="column is-6">
+                <iframe
+                  v-if="yt != undefined"
+                  id="ytplayer"
+                  type="text/html"
+                  width="640"
+                  height="360px"
+                  :src="yt"
+                  frameborder="0"
+                ></iframe>
+              </div>
+              <div class="column is-6">
+                <nav class="level">
+                  <div class="level-left">
+                    <div class="level-item">
+                      <div>
+                        <p class="heading">Map Name</p>
+                        <p class="title">{{ mapData.mapName }}</p>
+                      </div>
+                    </div>
+                    <div class="level-item" style="margin-left: 2rem;">
+                      <div>
+                        <p class="heading">Game</p>
+                        <p class="title">{{ this.mapData.game }}</p>
+                      </div>
                     </div>
                   </div>
-                  <div class="level-item" style="margin-left: 2rem;">
-                    <div>
-                      <p class="heading">Game</p>
-                      <p class="title">{{ game }}</p>
-                    </div>
-                  </div>
-                </div>
-              </nav>
-              <label for="">Map Description:</label>
-              <p style="margin-top: 5px">{{ mapData.description }}</p>
-              <br />
+                </nav>
+                <label for="">Map Description:</label>
+                <p style="margin-top: 5px">{{ mapData.description }}</p>
+                <br />
 
-              <nav class="level">
-                <div class="level-item has-text-centered">
-                  <div>
-                    <p class="heading">Total Cinematics</p>
-                    <p class="title">{{ cinematics.length }}</p>
+                <nav class="level">
+                  <div class="level-item has-text-centered">
+                    <div>
+                      <p class="heading">Total Cinematics</p>
+                      <p class="title">{{ cinematics.length }}</p>
+                    </div>
                   </div>
-                </div>
-                <div
-                  v-if="mapData.addedToDb"
-                  class="level-item has-text-centered"
-                >
-                  <div>
-                    <p class="heading">Added to Database</p>
-                    <p class="title">
-                      {{ mapData.addedToDb | moment('MMM D, YYYY') }}
-                    </p>
+                  <div
+                    v-if="mapData.addedToDb"
+                    class="level-item has-text-centered"
+                  >
+                    <div>
+                      <p class="heading">Added to Database</p>
+                      <p class="title">
+                        {{ mapData.addedToDb | moment('MMM D, YYYY') }}
+                      </p>
+                    </div>
                   </div>
-                </div>
-                <div class="level-item has-text-centered">
-                  <div>
-                    <p class="heading">All Time Downloads</p>
-                    <p class="title">8,239</p>
+                  <div class="level-item has-text-centered">
+                    <div>
+                      <p class="heading">All Time Downloads</p>
+                      <p class="title">8,239</p>
+                    </div>
                   </div>
-                </div>
-              </nav>
+                </nav>
+              </div>
             </div>
           </div>
           <br /><br /><br />
-          <h1 class="title">Available Cinematics</h1>
-          <hr />
-          <div class="columns is-multiline">
-            <article
-              v-for="cinematic in cinematics"
-              :key="cinematic._id"
-              class="column is-4"
-            >
-              <MapSelect :url="cinematic.thumbnail">
-                <template v-slot:header>
-                  <strong
-                    >{{ mapData.mapName }} - #{{ cinematic.number }}</strong
-                  >
-                </template>
-                <template v-slot:foot-left>
-                  <p v-if="!isAuthed">
-                    Log in to download cinematics.
-                  </p>
-                  <p v-if="isAuthed" class="subtitle is-5">
-                    <strong>Resolution:</strong> 1440p
-                  </p>
-                </template>
-                <template v-slot:foot-right>
-                  <a
-                    v-if="isAuthed"
-                    :href="cinematic.downloadUrl"
-                    class="button is-primary is-outlined"
-                    download
-                    target="_blank"
-                    >Download Cinematic</a
-                  >
-                </template>
-              </MapSelect>
-            </article>
-          </div>
+          <section class="cinematics">
+            <div class="container">
+              <h1 class="title has-text-centered">Available Cinematics</h1>
+              <hr />
+              <br />
+              <div class="columns is-multiline">
+                <article
+                  v-for="cinematic in cinematics"
+                  :key="cinematic._id"
+                  class="column is-4"
+                >
+                  <MapSelect :url="cinematic.thumbnail">
+                    <template v-slot:header>
+                      <strong
+                        >{{ mapData.mapName }} - #{{ cinematic.number }}</strong
+                      >
+                    </template>
+                    <template v-slot:foot-left>
+                      <p class="card-footer-text" v-if="!isAuthed">
+                        Log in to download cinematics.
+                      </p>
+                      <p v-if="isAuthed" class="card-footer-text subtitle is-5">
+                        <strong>Resolution:</strong> 1440p
+                      </p>
+                    </template>
+                    <template v-slot:foot-right>
+                      <a
+                        v-if="isAuthed"
+                        @click="getDownloadLink(cinematic.filePath)"
+                        class="button is-primary is-outlined"
+                        download
+                        target="_blank"
+                        >Download Cinematic</a
+                      >
+                    </template>
+                  </MapSelect>
+                </article>
+              </div>
+            </div>
+          </section>
         </div>
         <FeaturedMini v-if="featured" :featured="featured" />
       </section>
@@ -138,6 +156,7 @@ import MapSelect from '@/components/MapSelect.vue'
 import FeaturedMini from '@/components/FeaturedMini.vue'
 import _ from 'lodash'
 import { mapGetters } from 'vuex'
+import CryptoJS from 'crypto-js'
 export default {
   components: {
     MapSelect,
@@ -161,7 +180,7 @@ export default {
         let url =
           'https://www.youtube.com/embed/' +
           this.mapData.yt +
-          '?autoplay=0&mute=1&origin=https://oneguy.io'
+          '?autoplay=1&mute=1&origin=https://oneguy.io'
         return url
       } else {
         return undefined
@@ -169,6 +188,9 @@ export default {
     },
     game() {
       return _.startCase(this.$router.currentRoute.params.gameId)
+    },
+    heroTitleLength() {
+      return this.mapData.mapName.length * 25
     },
     ...mapGetters(['isAuthed'])
   },
@@ -231,6 +253,28 @@ export default {
           this.featured = _.clone(gamesArray)
         }
       })
+    },
+    getDownloadLink(path) {
+      let securityKey = process.env.VUE_APP_BCDN_TOKEN
+      // Set the time of expiry to one hour from now
+      let expires = Math.round(Date.now() / 1000) + 3600
+      let hashableBase = securityKey + path + expires
+      // Generate and encode the token
+      let token = CryptoJS.MD5(hashableBase).toString(CryptoJS.enc.Base64)
+      token = token
+        .replace(/\+/g, '-')
+        .replace(/\//g, '_')
+        .replace(/\=/g, '') //eslint-disable-line
+
+      // Generate the URL
+      let URL =
+        'https://cinematics.b-cdn.net' +
+        path +
+        '?token=' +
+        token +
+        '&expires=' +
+        expires
+      window.open(URL, '_blank')
     }
   }
 }
@@ -247,9 +291,12 @@ export default {
     background-attachment: fixed;
     padding-top: 52px;
     .hero-body {
-      background: rgba($color: $light-200, $alpha: 0.5);
-      backdrop-filter: blur(5px) saturate(200%);
+      backdrop-filter: blur(0px) saturate(110%);
       box-shadow: $shadow-small;
+      font-family: quiroh, sans-serif;
+      .title {
+        font-size: 2.5rem;
+      }
     }
   }
 }
@@ -268,7 +315,48 @@ iframe {
   overflow: hidden;
   border: 1px solid $primary;
 }
-.map-container {
+.cinematics {
+  padding-top: 5rem;
   padding-bottom: 15rem;
+  background-color: $light-500;
 }
+.map-info {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+.title-card {
+  height: 150px;
+  min-width: 200px;
+  background: rgba($color: black, $alpha: 0.5);
+  backdrop-filter: blur(5px) saturate(200%);
+  border-radius: 5px;
+  box-shadow: $shadow-small;
+  hr {
+    width: 50%;
+    background: white !important;
+    margin: 10px;
+  }
+  .title {
+    color: white;
+    font-family: 'BigNoodleToo', sans-serif;
+    letter-spacing: 0.1rem;
+    font-size: 4rem !important;
+    font-weight: 300;
+  }
+  .subtitle {
+    color: white;
+    margin-bottom: 0px;
+    font-family: quiroh, sans-serif;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 0.05rem;
+    text-shadow: $text-shadow;
+  }
+}
+// .card-footer-text {
+//   strong {
+//     color: white !important;
+//   }
+//   color: white !important;
+// }
 </style>

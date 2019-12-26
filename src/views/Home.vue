@@ -1,6 +1,6 @@
 <template>
   <main>
-    <HeroHome />
+    <HomeHero />
     <section class="container og-section intro">
       <div class="columns">
         <div class="column is-6 has-text-centered va">
@@ -27,15 +27,19 @@
           <p class="body">
             From what was once just an idea to help fellow content creators,
             these cinematic packs have evolved into something much larger than
-            ever imaginable. After analyzing the numbers behind the 29 (and
-            counting) Overwatch Cinematics, I decided to create this site to
-            allow an even wider audience to gain access to quality cinematics.
+            ever imaginable. <br /><br />After analyzing the numbers behind the
+            growing number of Overwatch Cinematics, I decided to create this
+            site to allow an even wider audience to gain access to high quality
+            cinematics. <br />
+            <br />
             Not everyone has time to record cinematics or the patience to track
-            them down all around the web - that's where this site comes in.
+            them down all around the web - that's where OneGuy Cinematics comes
+            in.
           </p>
         </div>
       </div>
     </section>
+    <HomeCounters />
     <section class="latest">
       <div class="container og-section ">
         <h1 class="title is-2">
@@ -76,14 +80,16 @@
 <script>
 import { db } from '@/main'
 import _ from 'lodash'
-import HeroHome from '@/components/HeroHome.vue'
+import HomeHero from '@/components/HomeHero.vue'
 import HowTo from '@/components/HowTo.vue'
 import MapSelect from '@/components/MapSelect.vue'
+import HomeCounters from '@/components/HomeCounters.vue'
 export default {
   components: {
     HowTo,
-    HeroHome,
-    MapSelect
+    HomeHero,
+    MapSelect,
+    HomeCounters
   },
   data() {
     return {
@@ -120,10 +126,10 @@ main {
 .test {
   float: right !important;
 }
-.hero-body {
-  background: rgba($color: #fff, $alpha: 0.4);
-  backdrop-filter: saturate(200%);
-}
+// .hero-body {
+//   background: rgba($color: #fff, $alpha: 0.4);
+//   backdrop-filter: saturate(200%);
+// }
 .intro {
   .title {
     font-family: quiroh, sans-serif;

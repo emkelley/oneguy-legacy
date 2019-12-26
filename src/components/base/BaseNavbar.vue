@@ -31,6 +31,7 @@
 
       <div id="burger" class="navbar-menu" :class="{ 'is-active': isOpen }">
         <div class="navbar-start">
+          <router-link to="/" class="navbar-item">Home</router-link>
           <router-link to="/test" class="navbar-item">About</router-link>
 
           <router-link to="/cinematics" class="navbar-item"
