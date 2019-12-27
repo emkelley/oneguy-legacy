@@ -126,7 +126,6 @@ export default {
   },
   created() {
     if (!this.userProfile.isAdmin) {
-      console.log('not admin')
       this.$router.push({ name: '403' })
     }
   },
