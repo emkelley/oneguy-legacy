@@ -10,7 +10,7 @@
             <i class="fad fa-clipboard-list"></i>&ensp; General Information
           </h2>
           <div class="og-card-content">
-            <div class="columns">
+            <div class="columns is-multiline">
               <div class="column">
                 <b-field label="Parent Game" expanded>
                   <b-field>
@@ -26,13 +26,13 @@
                   <b-field>
                     <b-input
                       v-model="mapName"
-                      placeholder="Watchpoint-Gibraltar"
+                      placeholder="Watchpoint: Gibraltar"
                       expanded
                       size="is-medium"
                     ></b-input>
                   </b-field>
                 </b-field>
-                <b-field label="Set Cinematic Count" expanded>
+                <b-field label="Count Starting Point" expanded>
                   <b-field>
                     <b-input
                       v-model="counter"
@@ -42,30 +42,76 @@
                   </b-field>
                 </b-field>
               </div>
-              <div class="column has-text-centered">
-                <label style="font-weight: bold"
-                  >Cinematic Thumbnail Image</label
-                ><br />
-                <b-field class="file">
-                  <b-upload v-model="file" drag-drop>
-                    <section class="section">
-                      <div class="content has-text-centered">
-                        <p>
-                          <b-icon icon="upload" size="is-medium"> </b-icon>
-                        </p>
-                        <p>Drop your file here or click to upload</p>
-                      </div>
-                    </section>
-                  </b-upload>
-                </b-field>
-                <span class="tag is-primary is-medium" v-if="file">
-                  {{ file.name }}
-                </span>
+              <div class="column is-12">
+                <p style="font-weight: bold; color: #363636; font-size: 1rem">
+                  Options:
+                </p>
+                Unless you have uploaded the files directly to the CDN, leave
+                these checked.
+                <br />
+                <br />
+
+                <b-checkbox v-model="options.uploadThumbnail">
+                  I want to upload the thumbnail file
+                </b-checkbox>
+                <br />
+                <b-checkbox v-model="options.uploadVideoFile">
+                  I want to upload the cinematic file
+                </b-checkbox>
+                <br />
+                <br />
+              </div>
+              <div class="column is-12">
+                <div class="columns">
+                  <div class="column">
+                    <label style="font-weight: bold"
+                      >Cinematic Thumbnail Image</label
+                    ><br />
+                    <b-field class="file">
+                      <b-upload v-model="file" drag-drop>
+                        <section class="section">
+                          <div class="content has-text-centered">
+                            <p>
+                              <b-icon icon="upload" size="is-medium"> </b-icon>
+                            </p>
+                            <p>Drop your file here or click to upload</p>
+                          </div>
+                        </section>
+                      </b-upload>
+                    </b-field>
+                    <span class="tag is-primary is-medium" v-if="file">
+                      {{ file.name }}
+                    </span>
+                  </div>
+                  <div class="column">
+                    <label style="font-weight: bold"
+                      >Cinematic Video File (MP4)</label
+                    ><br />
+                    <b-field class="file">
+                      <b-upload v-model="cinematicFile" drag-drop>
+                        <section class="section">
+                          <div class="content has-text-centered">
+                            <p>
+                              <b-icon icon="upload" size="is-medium"> </b-icon>
+                            </p>
+                            <p>Drop your file here or click to upload</p>
+                          </div>
+                        </section>
+                      </b-upload>
+                    </b-field>
+                    <span class="tag is-primary is-medium" v-if="cinematicFile">
+                      {{ cinematicFile.name }}
+                    </span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
           <hr />
           <br />
+          <h3 class="heading has-text-centered">
+            This will take 2-5 minutes depending on file size
+          </h3>
           <nav class="level">
             <div class="level-item has-text-centered">
               <button
@@ -78,7 +124,7 @@
                 "
                 class="button is-medium is-primary is-outlined"
               >
-                Add to Queue
+                Upload and Add to Queue
               </button>
             </div>
           </nav>
@@ -95,7 +141,7 @@
               <div v-if="queue.length > 0" class="column is-12">
                 <b-table :data="queue" :columns="columns"></b-table>
               </div>
-              <div class="column empty has-text-centered va">
+              <div v-else class="column empty has-text-centered va">
                 <i class="fal fa-empty-set fa-3x"></i>
                 <p>Nothing in queue...</p>
                 <br /><br />
@@ -150,7 +196,12 @@ export default {
       loading: false,
       checkbox: false,
       file: undefined,
+      cinematicFile: undefined,
       queue: [],
+      options: {
+        uploadThumbnail: true,
+        uploadVideoFile: true
+      },
       cinematic: {
         _id: undefined,
         filePath: '',
@@ -206,9 +257,8 @@ export default {
       this.addLoading = true
       this.queueProcessed = false
       this.cinematic._id = uuidv4()
-      this.cinematic.number = this.counter
-      this.cinematic.filePath = this.filePath
-      if (!this.file || this.gameName == undefined) {
+      this.cinematic.number = Number(this.counter)
+      if (this.mapName == undefined || this.gameName == undefined) {
         this.status = {
           type: 'failure',
           message: `An error occurred: Missing information`
@@ -217,10 +267,16 @@ export default {
           this.status = undefined
         }, 10000)
       } else {
-        this.uploadToCdn()
+        if (this.options.uploadThumbnail) {
+          this.uploadThumbnail()
+        } else if (this.options.uploadVideoFile) {
+          this.uploadVideoFile()
+        } else {
+          this.queueCinematic()
+        }
       }
     },
-    uploadToCdn() {
+    uploadThumbnail() {
       this.loading = true
       let file = this.file
       let fileName = `${this.kebabName}-${this.counter}`
@@ -239,7 +295,7 @@ export default {
               this.gameName
             )}/thumbnails/${fileName}.jpg`
             this.cinematic.thumbnailUrl = finalUrl
-            this.queueCinematic()
+            this.uploadVideoFile()
           }
         },
         error => {
@@ -254,7 +310,51 @@ export default {
         }
       )
     },
+    uploadVideoFile() {
+      let cinematic = this.cinematicFile
+      let fileName = this.counter
+      let url = `https://storage.bunnycdn.com/oneguy/cinematics/${_.toLower(
+        this.gameName
+      )}/${fileName}.mp4`
+      let config = {
+        headers: {
+          AccessKey: process.env.VUE_APP_BCDN_API_KEY
+        }
+      }
+      axios.put(url, cinematic, config).then(
+        response => {
+          if (response.status == 201) {
+            let filePath = `/cinematics/${_.toLower(this.gameName)}/${
+              this.counter
+            }.mp4`
+            this.cinematic.filePath = filePath
+            this.queueCinematic()
+          }
+        },
+        error => {
+          alert(error.message)
+          this.status = {
+            type: 'failure',
+            message: `An error occurred adding thumbnail or video file to database. ${error.message}`
+          }
+          setTimeout(() => {
+            this.status = undefined
+          }, 10000)
+        }
+      )
+    },
     queueCinematic() {
+      if (!this.options.uploadThumbnail) {
+        let fileName = `${this.kebabName}-${this.counter}`
+        this.cinematic.thumbnailUrl = `https://cdn.oneguy.io/app/games/${_.toLower(
+          this.gameName
+        )}/thumbnails/${fileName}.jpg`
+      }
+      if (!this.options.uploadVideoFile) {
+        this.cinematic.filePath = `/cinematics/${_.toLower(this.kebabName)}/${
+          this.counter
+        }.mp4`
+      }
       this.queue.push(this.cinematic)
       this.status = {
         type: 'success',

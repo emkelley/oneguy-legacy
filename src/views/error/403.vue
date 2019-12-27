@@ -1,5 +1,6 @@
 <template>
   <main class="va">
+    <vue-headful title="403 - Unauthorized" />
     <center>
       <div class="error-container has-text-centered">
         <h1 class="title">403</h1>

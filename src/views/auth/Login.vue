@@ -56,6 +56,7 @@
             >
           </form>
           <br />
+          <router-link to="/register">Create an Account</router-link>
           <p class="help">
             <strong style="color: red">{{ error }}</strong>
           </p>

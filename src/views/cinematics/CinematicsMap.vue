@@ -178,9 +178,9 @@ export default {
     yt: function() {
       if (this.mapData) {
         let url =
-          'https://www.youtube.com/embed/' +
+          'https://www.youtube-nocookie.com/embed/' +
           this.mapData.yt +
-          '?autoplay=1&mute=1&origin=https://oneguy.io'
+          '?autoplay=0&mute=1&origin=https://oneguy.io'
         return url
       } else {
         return undefined
@@ -268,7 +268,7 @@ export default {
 
       // Generate the URL
       let URL =
-        'https://cinematics.b-cdn.net' +
+        'https://v.cdn.oneguy.io' +
         path +
         '?token=' +
         token +

@@ -1,5 +1,6 @@
 <template>
   <main class="va">
+    <vue-headful title="404 - Not Found" />
     <center>
       <div class="error-container has-text-centered">
         <h1 class="title">404</h1>

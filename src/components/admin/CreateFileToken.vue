@@ -5,7 +5,7 @@
       <hr />
       <br />
       <div class="field">
-        <label class="label">File Path</label>
+        <label class="label">CDN File Path</label>
         <div class="control">
           <input
             v-model="path"
@@ -38,8 +38,8 @@ export default {
   },
   methods: {
     createToken() {
-      let securityKey = process.env.VUE_APP_BCDN_TOKEN
       let path = this.path
+      let securityKey = process.env.VUE_APP_BCDN_TOKEN
       // Set the time of expiry to one hour from now
       let expires = Math.round(Date.now() / 1000) + 3600
       let hashableBase = securityKey + path + expires
@@ -49,10 +49,9 @@ export default {
         .replace(/\+/g, '-')
         .replace(/\//g, '_')
         .replace(/\=/g, '') //eslint-disable-line
-
       // Generate the URL
       this.finalUrl =
-        'https://cinematics.b-cdn.net' +
+        'https://v.cdn.oneguy.io' +
         path +
         '?token=' +
         token +

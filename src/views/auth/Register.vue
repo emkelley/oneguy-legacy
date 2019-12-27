@@ -17,9 +17,9 @@
               id="name"
               v-model="name"
               type="text"
-              name="Name"
-              title="Name"
-              placeholder="Name (e.g., OneGuy or Eric)"
+              name="Username"
+              title="Username"
+              placeholder="Username"
               required
               autofocus
             />
