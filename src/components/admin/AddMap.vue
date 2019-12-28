@@ -1,6 +1,6 @@
 <template>
   <section class="column add-map">
-    <h1 class="title"><i class="fad fa-folder-plus"></i>&emsp; Add New Map</h1>
+    <h1 class="title"><i class="fad fa-map"></i>&emsp; Add New Map</h1>
     <hr class="title-hr" />
     <br />
     <div class="columns">
@@ -67,8 +67,8 @@
               <b-input
                 v-model="mapInfo.description"
                 type="textarea"
-                height="175px;"
-                placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+                height="250px"
+                placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
               ></b-input>
             </b-field> </b-field
           ><br />
@@ -138,11 +138,12 @@
             <br />
             <button
               :disabled="!checkbox"
-              @click="uploadToCdn"
+              @click="uploadToCdn()"
               class="button is-medium is-primary"
             >
-              Add New Map
-            </button>
+              Add New Map</button
+            ><br />
+            <h1 v-if="mapAdded" class="title">Map Successfully Added!</h1>
           </div>
           <!-- </form> -->
         </div>
@@ -167,20 +168,21 @@ export default {
         id: undefined,
         active: true,
         game: 'Overwatch',
-        mapName: 'Watchpoint Gibraltar',
+        mapName: 'Echopoint: Antarctica',
         slug: undefined,
         url: undefined,
-        wiki: 'https://overwatch.gamepedia.com/Watchpoint:_Gibraltar',
-        yt: 'c2lSiIR1Wjc',
+        wiki: 'https://overwatch.gamepedia.com/Echopoint:_Antarctica',
+        yt: 'NZvfSDG07kg',
         description:
-          'At its height, Overwatch maintained a number of bases around the world, each with its own purpose: peacekeeping, scientific research, or in the case of Watchpoint: Gibraltar, providing an orbital launch facility. The base was mothballed along with the rest of Overwatch installations, but there have been recent reports of activity within the perimeter. Could this indicate the presence of former Overwatch agents, or is this the work of organizations with more nefarious intentions?',
+          'Maintained by Overwatch, the ecopoint served as a monitoring station for the study of Earths changing climate. Disaster struck the station when it was hit by a polar storm, damaging the stations solar array. Cut off from the outside world, the scientists were left stranded in the damaged facility. As their supplies dwindled, they entered cryostasis in a last-ditch effort to survive until a rescue attempt could be made. Rescue came years later, but Dr. Mei-Ling Zhou was the only survivor. By this point, Overwatch was no more, and the eco-watchpoints had ceased to operate. Mei left the base after receiving a recall order from Winston.',
         poster: undefined,
         addedToDb: undefined
       },
       customAddedDate: false,
       customDay: undefined,
       customMonth: undefined,
-      customYear: undefined
+      customYear: undefined,
+      mapAdded: false
     }
   },
   computed: {
@@ -204,29 +206,41 @@ export default {
   },
   methods: {
     uploadToCdn() {
-      this.loading = true
-      let file = this.file
-      let map = this.kebabName
-      let url = `https://storage.bunnycdn.com/oneguy/app/posters/${map}.png`
-      let config = {
-        headers: {
-          AccessKey: process.env.VUE_APP_BCDN_API_KEY
-        }
-      }
-      if (!file) {
-        return
+      this.mapAdded = false
+      if (this.file == undefined) {
+        let finalUrl = `https://cdn.oneguy.io/app/games/${_.toLower(
+          this.mapInfo.game
+        )}/posters/${this.kebabName}.jpg`
+        this.finalPropertiesPrep(finalUrl)
       } else {
-        axios.put(url, file, config).then(
-          response => {
-            if (response.status == 201) {
-              let finalUrl = `https://cdn.oneguy.io/app/posters/${map}.png`
-              this.finalPropertiesPrep(finalUrl)
-            }
-          },
-          error => {
-            alert(error.message)
+        this.loading = true
+        let file = this.file
+        let map = this.kebabName
+        let url = `https://storage.bunnycdn.com/oneguy/app/games/${_.toLower(
+          this.mapInfo.game
+        )}/posters/${map}.jpg`
+        let config = {
+          headers: {
+            AccessKey: process.env.VUE_APP_BCDN_API_KEY
           }
-        )
+        }
+        if (!file) {
+          return
+        } else {
+          axios.put(url, file, config).then(
+            response => {
+              if (response.status == 201) {
+                let finalUrl = `https://cdn.oneguy.io/app/games/${_.toLower(
+                  this.mapInfo.game
+                )}/posters/${map}.jpg`
+                this.finalPropertiesPrep(finalUrl)
+              }
+            },
+            error => {
+              alert(error.message)
+            }
+          )
+        }
       }
     },
     finalPropertiesPrep(url) {
@@ -251,7 +265,20 @@ export default {
       let finalMapInfo = this.mapInfo
       db.collection('maps')
         .doc(finalMapInfo.slug)
-        .set(finalMapInfo, { merge: true })
+        .set(finalMapInfo)
+        .then(() => {
+          this.$buefy.toast.open({
+            message: 'Map Added Successfully!',
+            type: 'is-success'
+          })
+          window.scrollTo(0, 0)
+        })
+        .catch(err => {
+          this.$buefy.toast.open({
+            message: `Error adding map: ${err.message}`,
+            type: 'is-danger'
+          })
+        })
     },
     convertToKebabCase(string) {
       return string
@@ -294,6 +321,10 @@ hr {
     border-radius: 10px;
     box-shadow: $shadow-medium;
     overflow: hidden;
+    height: 370px;
   }
+}
+textarea {
+  min-height: 250px !important;
 }
 </style>

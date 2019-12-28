@@ -12,7 +12,7 @@
           </strong>
         </div>
         <div v-if="!confirmation" class="content">
-          <form method="POST" @keydown.enter="validate" action="#">
+          <form method="POST" @keydown.enter="validate">
             <input
               id="name"
               v-model="name"
@@ -53,6 +53,7 @@
               required
             />
             <button
+              @click="validate"
               type="submit"
               class="button is-primary login-btn is-medium is-outlined"
               :class="{ 'is-loading': isLoading }"
@@ -62,6 +63,7 @@
             </button>
           </form>
           <br />
+          {{ errors.type }}
         </div>
         <div v-else class="content has-text-centered va">
           <i class="fad fa-user-check fa-4x" style="color: #031b4e"></i>
@@ -116,7 +118,7 @@ export default {
       }
       if (this.password !== this.passwordConfirmation) {
         this.errors.push({
-          type: 'Nickname must be greater than 3 characters'
+          type: 'Password confirmation does not match'
         })
       }
       if (this.errors.length === 0) {
@@ -148,9 +150,18 @@ export default {
               this.isLoading = false
               this.confirmation = true
             })
+            .catch(err => {
+              this.isLoading = false
+              this.errors.push({
+                type: `Error in setting profile: ${err.message}`
+              })
+            })
         })
         .catch(err => {
-          this.error = err.message
+          this.isLoading = false
+          this.errors.push({
+            type: `Error in main register function: ${err.message}`
+          })
         })
     }
   }

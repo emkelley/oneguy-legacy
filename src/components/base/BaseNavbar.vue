@@ -38,8 +38,8 @@
             >Cinematics</router-link
           >
 
-          <a class="navbar-item">FAQ's</a>
-          <a class="navbar-item">Support</a>
+          <!-- <a class="navbar-item">FAQ's</a>
+          <a class="navbar-item">Support</a> -->
         </div>
         <div class="navbar-end">
           <b-dropdown
@@ -147,11 +147,11 @@ export default {
 
 <style lang="scss" scoped>
 nav {
-  background: rgba($color: #fff, $alpha: 0.65) !important;
+  background: rgba($color: $light-300, $alpha: 0.9) !important;
   backdrop-filter: saturate(200%) blur(10px) !important;
 }
 .navbar-item {
-  color: $light-700;
+  color: $light-900;
   letter-spacing: 0.05rem;
   font-family: nunito-sans, sans-serif;
 }

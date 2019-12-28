@@ -134,8 +134,8 @@ export default {
 </script>
 <style lang="scss" scoped>
 .body {
-  height: 80vh;
-  background: $light-300;
+  background: linear-gradient(127deg, $light-400 5%, $light-500 95%);
+  padding-bottom: 20rem;
 }
 .game-content {
   .hero {
@@ -151,7 +151,6 @@ export default {
     }
   }
 }
-
 .empty {
   padding-top: 52px;
 }

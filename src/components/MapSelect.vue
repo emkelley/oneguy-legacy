@@ -78,6 +78,7 @@ export default {
     border-top-right-radius: 6px;
     border-top-left-radius: 6px;
     font-family: nunito-sans, sans-serif !important;
+    z-index: 99;
   }
   .og-card-body {
     margin-top: -57px;

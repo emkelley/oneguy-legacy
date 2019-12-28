@@ -95,8 +95,13 @@
                   </div>
                   <div class="level-item has-text-centered">
                     <div>
-                      <p class="heading">All Time Downloads</p>
-                      <p class="title">8,239</p>
+                      <p class="heading">Wiki Link</p>
+                      <a
+                        :href="mapData.wiki"
+                        target="_blank"
+                        class="button is-info"
+                        >View Wiki</a
+                      >
                     </div>
                   </div>
                 </nav>
@@ -190,7 +195,7 @@ export default {
       return _.startCase(this.$router.currentRoute.params.gameId)
     },
     heroTitleLength() {
-      return this.mapData.mapName.length * 25
+      return this.mapData.mapName.length * 35
     },
     ...mapGetters(['isAuthed'])
   },
@@ -285,6 +290,7 @@ export default {
 }
 .game-content {
   .hero {
+    backdrop-filter: saturate(200%) !important;
     background-position: bottom;
     background-size: cover;
     background-repeat: no-repeat;
