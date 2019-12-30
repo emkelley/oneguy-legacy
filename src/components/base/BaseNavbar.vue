@@ -67,9 +67,9 @@
               </router-link>
             </b-dropdown-item>
             <b-dropdown-item class="va" aria-role="menuitem">
-              <router-link to="/account">
+              <router-link to="/cinematics/overwatch">
                 <i class="fal fa-comment-alt-exclamation"></i>&emsp; Request
-                Cinematics
+                Overwatch Cinematics
               </router-link>
             </b-dropdown-item>
             <b-dropdown-item
