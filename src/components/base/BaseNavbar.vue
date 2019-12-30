@@ -34,8 +34,8 @@
           <router-link to="/" class="navbar-item">Home</router-link>
           <router-link to="/test" class="navbar-item">About</router-link>
 
-          <router-link to="/cinematics" class="navbar-item"
-            >Cinematics</router-link
+          <router-link to="/cinematics/overwatch" class="navbar-item"
+            >Overwatch Cinematics</router-link
           >
 
           <!-- <a class="navbar-item">FAQ's</a>
@@ -57,9 +57,9 @@
             </b-dropdown-item>
             <hr class="dropdown-divider" />
             <b-dropdown-item class="va" aria-role="menuitem">
-              <router-link to="/account">
+              <router-link to="/account"> 
                 <i class="fal fa-cogs"></i>&emsp; My Account
-              </router-link>
+              </router-link> 
             </b-dropdown-item>
             <b-dropdown-item class="va" aria-role="menuitem">
               <router-link to="/account">
@@ -67,9 +67,8 @@
               </router-link>
             </b-dropdown-item>
             <b-dropdown-item class="va" aria-role="menuitem">
-              <router-link to="/cinematics/overwatch">
-                <i class="fal fa-comment-alt-exclamation"></i>&emsp; Request
-                Overwatch Cinematics
+              <router-link to="/">
+                <i class="fal fa-comment-alt-exclamation"></i>&emsp; Request Cinematics
               </router-link>
             </b-dropdown-item>
             <b-dropdown-item

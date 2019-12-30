@@ -87,7 +87,7 @@
                     class="level-item has-text-centered"
                   >
                     <div>
-                      <p class="heading">Added to Database</p>
+                      <p class="heading">Added to OGC Database</p>
                       <p class="title">
                         {{ mapData.addedToDb | moment('MMM D, YYYY') }}
                       </p>
@@ -140,7 +140,6 @@
                         @click="getDownloadLink(cinematic.filePath)"
                         class="button is-primary is-outlined"
                         download
-                        target="_blank"
                         >Download Cinematic</a
                       >
                     </template>
