@@ -136,6 +136,11 @@ export default {
 .body {
   background: linear-gradient(127deg, $light-400 5%, $light-500 95%);
   padding-bottom: 20rem;
+  
+  @media only screen and (max-width: 70em) {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
 }
 .game-content {
   .hero {

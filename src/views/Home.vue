@@ -121,7 +121,9 @@ export default {
 <style lang="scss" scoped>
 main {
   background: $light-300;
-  margin-top: -50px;
+  @media only screen and (max-width: 70em) {
+    margin-top: 50px;
+  }
 }
 .test {
   float: right !important;
@@ -130,6 +132,13 @@ main {
 //   background: rgba($color: #fff, $alpha: 0.4);
 //   backdrop-filter: saturate(200%);
 // }
+
+.og-section {
+  @media only screen and (max-width: 70em) {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
 .intro {
   .title {
     font-family: quiroh, sans-serif;
@@ -149,6 +158,18 @@ span {
   &.spacer {
     margin-left: 20px;
     margin-right: 20px;
+  }
+}
+.how-wrapper {
+  @media only screen and (max-width: 70em) {
+    text-align: center;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    .register {
+      .desc {
+        padding-right: 0px !important;
+      }
+    }
   }
 }
 </style>

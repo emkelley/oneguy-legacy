@@ -68,6 +68,11 @@ export default {
   .title {
     color: white;
   }
+  @media only screen and (max-width: 70em) {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    text-align: center;
+  }
 }
 .fad {
   transform: translateX(4%);

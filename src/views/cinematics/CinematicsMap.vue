@@ -286,6 +286,7 @@ export default {
 <style lang="scss" scoped>
 .body {
   background: $light-300;
+  
 }
 .game-content {
   .hero {
@@ -295,12 +296,23 @@ export default {
     background-repeat: no-repeat;
     background-attachment: fixed;
     padding-top: 52px;
+         @media only screen and (max-width: 70em) {
+        max-width: 100vw!important;
+        overflow: hidden;
+  }
     .hero-body {
       backdrop-filter: blur(0px) saturate(110%);
       box-shadow: $shadow-small;
       font-family: quiroh, sans-serif;
+         @media only screen and (max-width: 70em) {
+        max-width: 100vw!important;
+        overflow: hidden;
+  }
       .title {
         font-size: 2.5rem;
+         @media only screen and (max-width: 70em) {
+        font-size: 1rem;
+  }
       }
     }
   }
@@ -324,6 +336,11 @@ iframe {
   padding-top: 5rem;
   padding-bottom: 15rem;
   background-color: $light-500;
+  @media only screen and (max-width: 70em) {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    text-align: center;
+  }
 }
 .map-info {
   padding-top: 2rem;
