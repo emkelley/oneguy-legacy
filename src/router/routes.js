@@ -30,6 +30,12 @@ const router = new VueRouter({
         import(/* webpackChunkName: "Register" */ '@/views/auth/Register.vue')
     },
     {
+      path: '/about',
+      name: 'about',
+      component: () =>
+        import(/* webpackChunkName: "Register" */ '@/views/About.vue')
+    },
+    {
       path: '/cinematics',
       name: 'cinematics',
       component: () =>

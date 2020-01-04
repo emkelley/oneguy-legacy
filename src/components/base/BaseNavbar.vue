@@ -32,7 +32,7 @@
       <div id="burger" class="navbar-menu" :class="{ 'is-active': isOpen }">
         <div class="navbar-start">
           <router-link to="/" class="navbar-item">Home</router-link>
-          <router-link to="/test" class="navbar-item">About</router-link>
+          <router-link to="/about" class="navbar-item">About</router-link>
 
           <router-link to="/cinematics/overwatch" class="navbar-item"
             >Overwatch Cinematics</router-link
@@ -56,7 +56,7 @@
               Logged as <b>{{ userProfile.email }}</b>
             </b-dropdown-item>
             <hr class="dropdown-divider" />
-            <b-dropdown-item class="va" aria-role="menuitem">
+            <!-- <b-dropdown-item class="va" aria-role="menuitem">
               <router-link to="/account"> 
                 <i class="fal fa-cogs"></i>&emsp; My Account
               </router-link> 
@@ -70,7 +70,7 @@
               <router-link to="/">
                 <i class="fal fa-comment-alt-exclamation"></i>&emsp; Request Cinematics
               </router-link>
-            </b-dropdown-item>
+            </b-dropdown-item> -->
             <b-dropdown-item
               @click="signOut"
               value="logout"

@@ -70,7 +70,7 @@ export default {
       delay: 1000,
       downloads: 8800,
       totalMaps: 29,
-      totalCinematics: 600,
+      totalCinematics: 700,
       totalGames: 2,
       totalOptions: {
         useEasing: true,

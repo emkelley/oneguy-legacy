@@ -25,7 +25,7 @@
           <div class="level-item has-text-centered">
             <div>
               <p class="heading">Cinematics</p>
-              <p class="title">480</p>
+              <p class="title">680</p>
             </div>
           </div>
         </nav>
