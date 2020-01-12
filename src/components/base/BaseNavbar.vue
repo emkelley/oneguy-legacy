@@ -48,12 +48,13 @@
             aria-role="menu"
           >
             <a class="navbar-item" slot="trigger" role="button">
-              <span style="padding-right: 10px; ">Menu</span>
+              <span style="padding-right: 10px; ">
+             {{userProfile.username }}</span>
               <i class="fad fa-bars" style="transform: translateY(10%);"></i>
             </a>
 
             <b-dropdown-item class="va" custom aria-role="menuitem">
-              Logged as <b>{{ userProfile.email }}</b>
+              Logged as <b>{{ userProfile.username }}</b>
             </b-dropdown-item>
             <hr class="dropdown-divider" />
             <!-- <b-dropdown-item class="va" aria-role="menuitem">
@@ -156,6 +157,5 @@ nav {
 }
 // reset offset of fontawesome icons
 .fa {
-  transform: translateY(-4%);
 }
 </style>

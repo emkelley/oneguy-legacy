@@ -68,7 +68,7 @@ export default {
   data() {
     return {
       delay: 1000,
-      downloads: 8800,
+      downloads: 13900,
       totalMaps: 29,
       totalCinematics: 700,
       totalGames: 2,
