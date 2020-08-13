@@ -155,11 +155,12 @@
   </main>
 </template>
 <script>
+import firebase from '@firebase/app'
+import '@firebase/auth'
 import { db } from '@/main'
 import MapSelect from '@/components/MapSelect.vue'
 import FeaturedMini from '@/components/FeaturedMini.vue'
 import _ from 'lodash'
-import { mapGetters } from 'vuex'
 import CryptoJS from 'crypto-js'
 export default {
   components: {
@@ -196,7 +197,13 @@ export default {
     heroTitleLength() {
       return this.mapData.mapName.length * 35
     },
-    ...mapGetters(['isAuthed'])
+    isAuthed() {
+      if (firebase.auth().currentUser) {
+        return true
+      } else {
+        return false
+      }
+    }
   },
   mounted() {
     this.fetchMapData()
@@ -270,7 +277,7 @@ export default {
         .replace(/\//g, '_')
         .replace(/\=/g, '') //eslint-disable-line
 
-      // Generate the URL
+      // Build the URL
       let URL =
         'https://v.cdn.oneguy.io' +
         path +
@@ -286,7 +293,6 @@ export default {
 <style lang="scss" scoped>
 .body {
   background: $light-300;
-  
 }
 .game-content {
   .hero {
@@ -296,23 +302,23 @@ export default {
     background-repeat: no-repeat;
     background-attachment: fixed;
     padding-top: 52px;
-         @media only screen and (max-width: 70em) {
-        max-width: 100vw!important;
-        overflow: hidden;
-  }
+    @media only screen and (max-width: 70em) {
+      max-width: 100vw !important;
+      overflow: hidden;
+    }
     .hero-body {
       backdrop-filter: blur(0px) saturate(110%);
       box-shadow: $shadow-small;
       font-family: quiroh, sans-serif;
-         @media only screen and (max-width: 70em) {
-        max-width: 100vw!important;
+      @media only screen and (max-width: 70em) {
+        max-width: 100vw !important;
         overflow: hidden;
-  }
+      }
       .title {
         font-size: 2.5rem;
-         @media only screen and (max-width: 70em) {
-        font-size: 1rem;
-  }
+        @media only screen and (max-width: 70em) {
+          font-size: 1rem;
+        }
       }
     }
   }

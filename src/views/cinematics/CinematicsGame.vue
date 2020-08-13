@@ -136,7 +136,7 @@ export default {
 .body {
   background: linear-gradient(127deg, $light-400 5%, $light-500 95%);
   padding-bottom: 20rem;
-  
+
   @media only screen and (max-width: 70em) {
     padding-left: 1rem;
     padding-right: 1rem;
@@ -148,7 +148,6 @@ export default {
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    padding-top: 52px;
     .hero-body {
       background: rgba($color: $light-200, $alpha: 0.5);
       backdrop-filter: blur(5px) saturate(200%);

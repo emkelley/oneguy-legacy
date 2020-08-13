@@ -1,5 +1,22 @@
 <template>
   <div id="app">
+    <article id="globalNotification" class="notification is-primary global">
+      <button
+        type="button"
+        aria-label="Close notification"
+        class="delete"
+        @click="dismissGlobalNotification"
+      ></button>
+      <div class="media">
+        <!---->
+        <div class="media-content has-text-centered">
+          <b-icon icon="info-circle" size="is-small" pack="fad"></b-icon>
+          To ease up on the system a little bit, all logins are now done with
+          social networks
+          <span style="margin-left: 1.25rem">- llOneGuyll</span>
+        </div>
+      </div>
+    </article>
     <BaseNavbar v-if="currentRoute !== 'login'" />
     <router-view :key="$route.fullPath" />
     <BaseFooter />
@@ -16,6 +33,12 @@ export default {
   computed: {
     currentRoute() {
       return this.$router.currentRoute.name
+    }
+  },
+  methods: {
+    dismissGlobalNotification() {
+      let x = document.getElementById('globalNotification')
+      x.style.display = 'none'
     }
   }
 }
@@ -68,5 +91,11 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   box-sizing: border-box;
+}
+.notification {
+  &.global {
+    border-radius: 0;
+    margin-bottom: 0 !important;
+  }
 }
 </style>

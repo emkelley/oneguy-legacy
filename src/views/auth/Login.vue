@@ -8,164 +8,70 @@
           </center>
         </div>
         <br />
-        <p class="help status">{{ loginStatus }}</p>
+        <p class="help status">Log in with a provider below:</p>
         <br />
-        <p v-if="sendVerificationEmailLink">
-          <a @click="sendVerificationEmail">Resend verification email</a>
-          <br />
-          <span v-if="verificationSent">Sent!</span>
-        </p>
-        <div class="content" style="padding-top: 10px;">
-          <form method="POST" action="#">
-            <input
-              id="email"
-              v-model="email"
-              type="email"
-              name="email"
-              title="email"
-              placeholder="Email"
-              required
-              autofocus
-            />
-            <input
-              id="password"
-              v-model="password"
-              type="password"
-              name="password"
-              title="password"
-              placeholder="Password"
-              required
-            />
-
-            <div class="level options">
-              <div class="checkbox level-left">
-                <input id="checkbox" type="checkbox" class="regular-checkbox" />
-                <label for="checkbox"></label>
-                <span>Remember me</span>
-              </div>
-
-              <a class="btn btn-link level-right" href="#">Forgot Password?</a>
-            </div>
-
-            <a
-              class="button is-primary login-btn is-medium"
-              :class="{ 'is-loading': isLoading }"
-              :disabled="isLoading"
-              @click="login()"
-              >Login</a
-            >
-          </form>
-          <br />
-          <router-link to="/register">Create an Account</router-link>
-          <p class="help">
-            <strong style="color: red">{{ error }}</strong>
-          </p>
-        </div>
+        <a @click="signIn('google')" class="button is-inverted is-medium"
+          ><i class="fab fa-google" style="margin-right: .75rem"></i> Log in
+          with Google</a
+        >
+        <br /><br />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { db } from '@/main'
 import firebase from '@firebase/app'
 import '@firebase/auth'
 
 export default {
-  components: {},
   layout: 'auth',
-  data() {
-    return {
-      email: '',
-      password: '',
-      authenticatedUser: null,
-      isLoading: false,
-      loginStatus: 'Welcome to OneGuy Cinematics',
-      error: '',
-      sendVerificationEmailLink: false,
-      verificationSent: false
+  computed: {
+    isAuthed() {
+      if (firebase.auth().currentUser) {
+        console.log(firebase.auth().currentUser)
+        return true
+      } else {
+        return false
+      }
     }
   },
+  mounted() {
+    this.checkAuth()
+  },
   methods: {
-    login() {
-      this.sendVerificationEmailLink = false
-      this.verificationSent = false
-      this.loginStatus = 'Logging in...'
+    signIn(authProvider) {
+      let provider
+      if (authProvider === 'google') {
+        provider = new firebase.auth.GoogleAuthProvider()
+      }
       firebase
         .auth()
-        .signInWithEmailAndPassword(this.email, this.password)
-        .then(user => {
-          if (user.user.emailVerified == false) {
-            this.loginStatus = `Your email is not verified. Please verify your email before logging in.`
-            this.sendVerificationEmailLink = true
-            return
-          }
-          this.loginStatus = 'Fetching profile...'
-          const userId = user.user.uid
-          const userIdString = userId.toString()
-          const profileRef = db.collection('users').doc(userIdString)
-          let data = []
-
-          profileRef
-            .get()
-            .then(doc => {
-              if (doc.exists) {
-                data = doc.data()
-                this.$store.commit('isAuthed', true)
-                this.$store.commit('setProfile', data)
-                this.$store.commit('setUserId', userId)
-                setTimeout(() => {
-                  this.loginStatus = 'Thank you for logging in. Redirecting...'
-                  this.$router.push({ name: 'cinematics' })
-                }, 750)
-              }
+        .setPersistence(firebase.auth.Auth.Persistence.SESSION)
+        .then(() => {
+          firebase
+            .auth()
+            .signInWithPopup(provider)
+            .then(user => {
+              const displayName = user.user.displayName
+              const avatar = user.user.photoURL
+              this.$store.commit('setUserDisplayName', displayName)
+              this.$store.commit('setUserAvatar', avatar)
+              this.$router.push({
+                path: '/cinematics/overwatch'
+              })
             })
             .catch(err => {
-              alert('Error getting profile', err)
+              console.log(err.message)
             })
         })
-        .catch(err => {
-          let code = err.code
-          switch (code) {
-            case 'auth/invalid-email':
-              this.loginStatus = 'Welcome to OneGuy Cinematics'
-              this.error = 'Invalid Email. Check your spelling and try again.'
-              break
-            case 'auth/wrong-password':
-              this.loginStatus = 'Welcome to OneGuy Cinematics'
-              this.error =
-                'Invalid Password. Check your spelling and try again.'
-              break
-            case 'auth/user-disabled':
-              this.loginStatus = 'Welcome to OneGuy Cinematics'
-              this.error = 'This account has been disabled by an administrator.'
-              break
-            case 'auth/user-not-found':
-              this.loginStatus = 'Welcome to OneGuy Cinematics'
-              this.error = 'No account found with this email.'
-              break
-            case 'auth/too-many-requests':
-              this.loginStatus = 'Welcome to OneGuy Cinematics'
-              this.error =
-                'This account has been disabled due to excessive sign on attempts. Please try again later.'
-              break
-            default:
-              this.loginStatus = 'Welcome to OneGuy Cinematics'
-              this.error =
-                'An error occurred while signing in. Please try again later.'
-          }
-        })
     },
-    sendVerificationEmail() {
-      let user = firebase.auth().currentUser
-      user
-        .sendEmailVerification()
-        .then(function() {
-          this.verificationSent = true
-        })
-        .catch(function(error) {
-          this.verificationSent = error
-        })
+    checkAuth() {
+      if (firebase.auth().currentUser) {
+        this.$router.push({ path: '/' })
+      } else {
+        console.log('not authed rn')
+      }
     }
   }
 }

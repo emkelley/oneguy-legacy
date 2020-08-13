@@ -1,9 +1,5 @@
 <template>
-  <nav
-    class="navbar is-fixed-top"
-    role="navigation"
-    aria-label="main navigation"
-  >
+  <nav class="navbar" role="navigation" aria-label="main navigation">
     <div class="container">
       <div class="navbar-brand">
         <router-link to="/" class="navbar-item">
@@ -42,68 +38,27 @@
           <a class="navbar-item">Support</a> -->
         </div>
         <div class="navbar-end">
-          <b-dropdown
-            v-if="isAuthed"
-            position="is-bottom-left"
-            aria-role="menu"
-          >
-            <a class="navbar-item" slot="trigger" role="button">
-              <span style="padding-right: 10px; ">
-             {{userProfile.username }}</span>
-              <i class="fad fa-bars" style="transform: translateY(10%);"></i>
-            </a>
-
-            <b-dropdown-item class="va" custom aria-role="menuitem">
-              Logged as <b>{{ userProfile.username }}</b>
-            </b-dropdown-item>
-            <hr class="dropdown-divider" />
-            <!-- <b-dropdown-item class="va" aria-role="menuitem">
-              <router-link to="/account"> 
-                <i class="fal fa-cogs"></i>&emsp; My Account
-              </router-link> 
-            </b-dropdown-item>
-            <b-dropdown-item class="va" aria-role="menuitem">
-              <router-link to="/account">
-                <i class="fal fa-comment-smile"></i>&emsp; Give Feedback
-              </router-link>
-            </b-dropdown-item>
-            <b-dropdown-item class="va" aria-role="menuitem">
-              <router-link to="/">
-                <i class="fal fa-comment-alt-exclamation"></i>&emsp; Request Cinematics
-              </router-link>
-            </b-dropdown-item> -->
-            <b-dropdown-item
-              @click="signOut"
-              value="logout"
-              aria-role="menuitem"
-            >
-              <i class="fad fa-sign-out"></i>&emsp; &emsp; Log Out
-            </b-dropdown-item>
-            <hr class="dropdown-divider" v-if="userProfile.isAdmin" />
-            <b-dropdown-item
-              v-if="userProfile.isAdmin"
-              class="va"
-              aria-role="menuitem"
-            >
-              <router-link to="/admin" style="color: red;">
-                <i class="fad fa-user-shield"></i>&emsp;
-                <strong>Admin Panel</strong>
-              </router-link>
-            </b-dropdown-item>
-          </b-dropdown>
           <div class="navbar-item">
-            <div class="buttons">
-              <router-link to="/register" v-if="!isAuthed" class="button is-og">
-                <strong>Sign up</strong>
-              </router-link>
-              <router-link
-                v-if="!isAuthed"
-                to="/login"
-                class="button is-primary"
-              >
-                Log in
-              </router-link>
-            </div>
+            <a
+              v-if="isAuthed()"
+              @click="signOut"
+              class="button is-inverted is-primary"
+              custom
+              aria-role="menuitem"
+            >
+              <i class="fad fa-sign-out" style="margin-right: .5rem"></i>Log Out
+            </a>
+            <router-link
+              v-if="!isAuthed()"
+              to="/login"
+              class="button is-primary"
+            >
+              Log in
+            </router-link>
+          </div>
+
+          <div class="navbar-item">
+            <div class="buttons"></div>
           </div>
         </div>
       </div>
@@ -112,34 +67,42 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 import firebase from '@firebase/app'
 import '@firebase/auth'
-
 export default {
   data() {
     return {
       isOpen: false,
-      respones: undefined
+      respones: undefined,
+      userAvatar: null,
+      displayName: null,
+      loading: true
     }
   },
-  computed: {
-    ...mapGetters(['isAuthed', 'userId', 'userProfile'])
+  mounted() {
+    this.isAuthed()
   },
-  created() {},
   methods: {
     signOut() {
       firebase
         .auth()
         .signOut()
-        .then(response => {
-          this.response = response
-          this.$store.dispatch('resetStateOnLogout')
-          this.$router.push({ path: '/login' })
+        .then(() => {
+          this.$router.replace({ path: '/' })
         })
         .catch(function(error) {
           alert('An error occurred when signing out: ' + error)
         })
+    },
+    isAuthed() {
+      let user = firebase.auth().currentUser
+      if (user) {
+        this.userAvatar = user.photoURL
+        this.displayName = user.displayName
+        return true
+      } else {
+        return false
+      }
     }
   }
 }
@@ -154,8 +117,5 @@ nav {
   color: $light-900;
   letter-spacing: 0.05rem;
   font-family: nunito-sans, sans-serif;
-}
-// reset offset of fontawesome icons
-.fa {
 }
 </style>

@@ -1,31 +1,35 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import createPersistedState from 'vuex-persistedstate'
-
+import VuexPersist from 'vuex-persist'
 Vue.use(Vuex)
+
+const vuexLocalStorage = new VuexPersist({
+  key: 'vuex',
+  storage: window.sessionStorage // or window.localStorage or localForage
+})
 const getDefaultState = () => {
   return {
     user: null,
     userId: null,
-    userProfile: {},
-    isAuthed: false,
-    // nightMode: null,
-    isAdmin: false
+    userDisplayName: null,
+    userAvatar: null,
+    isAuthed: false
   }
 }
 export default new Vuex.Store({
   state: {
     user: null,
     userId: null,
-    userProfile: {},
+    userDisplayName: null,
+    userAvatar: null,
     isAuthed: false
-    // nightMode: null,
   },
   getters: {
     isAuthed: state => state.isAuthed,
     user: state => state.user,
     userId: state => state.userId,
-    userProfile: state => state.userProfile,
+    userDisplayName: state => state.userDisplayName,
+    userAvatar: state => state.userAvatar,
     isAdmin: state => state.isAdmin
   },
   mutations: {
@@ -41,8 +45,11 @@ export default new Vuex.Store({
     setUserId(state, payload) {
       state.userId = payload
     },
-    setProfile(state, payload) {
-      state.userProfile = payload
+    setUserDisplayName(state, payload) {
+      state.userDisplayName = payload
+    },
+    setUserAvatar(state, payload) {
+      state.userAvatar = payload
     },
     setAdmin(state, payload) {
       state.isAdmin = payload
@@ -62,6 +69,6 @@ export default new Vuex.Store({
       commit('resetState')
     }
   },
-  plugins: [createPersistedState()],
+  plugins: [vuexLocalStorage.plugin],
   strict: process.env.NODE_ENV !== 'production'
 })

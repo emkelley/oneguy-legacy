@@ -15,11 +15,9 @@
             100% Royalty-Free Video Game <br />
             <span>Cinematics</span> and <span>Photography</span> <br />
             <br />
-            <router-link
-              to="/register"
-              class="button is-primary is-large cta-btn"
-            >
-              Create an Account
+            <router-link to="/login" class="button is-primary is-large cta-btn">
+              <i class="fad fa-rocket" style="margin-right: .75rem"></i>Get
+              Started
             </router-link>
           </h1>
         </div>
@@ -73,7 +71,7 @@
         </div>
       </div>
     </section>
-    <HowTo />
+    <!-- <HowTo /> -->
   </main>
 </template>
 
@@ -81,12 +79,12 @@
 import { db } from '@/main'
 import _ from 'lodash'
 import HomeHero from '@/components/HomeHero.vue'
-import HowTo from '@/components/HowTo.vue'
+// import HowTo from '@/components/HowTo.vue'
 import MapSelect from '@/components/MapSelect.vue'
 import HomeCounters from '@/components/HomeCounters.vue'
 export default {
   components: {
-    HowTo,
+    // HowTo,
     HomeHero,
     MapSelect,
     HomeCounters
