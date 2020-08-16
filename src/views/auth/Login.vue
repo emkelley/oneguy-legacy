@@ -26,19 +26,6 @@ import '@firebase/auth'
 
 export default {
   layout: 'auth',
-  computed: {
-    isAuthed() {
-      if (firebase.auth().currentUser) {
-        console.log(firebase.auth().currentUser)
-        return true
-      } else {
-        return false
-      }
-    }
-  },
-  mounted() {
-    this.checkAuth()
-  },
   methods: {
     signIn(authProvider) {
       let provider
@@ -53,7 +40,6 @@ export default {
             .auth()
             .signInWithPopup(provider)
             .then(user => {
-              console.log(user)
               const displayName = user.user.displayName
               this.$store.commit('setUserDisplayName', displayName)
               this.$store.commit('isAuthed', true)
@@ -61,17 +47,7 @@ export default {
                 path: '/cinematics/overwatch'
               })
             })
-            .catch(err => {
-              console.log(err.message)
-            })
         })
-    },
-    checkAuth() {
-      if (firebase.auth().currentUser) {
-        this.$router.push({ path: '/' })
-      } else {
-        console.log('not authed rn')
-      }
     }
   }
 }
