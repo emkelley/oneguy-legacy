@@ -73,7 +73,7 @@ export default {
     }
   }
   .og-card-header {
-    background: rgba($color: #fff, $alpha: 0.5);
+    background: rgba($color: #fff, $alpha: 0.5) !important;
     backdrop-filter: saturate(200%) blur(5px) !important;
     border-top-right-radius: 6px;
     border-top-left-radius: 6px;

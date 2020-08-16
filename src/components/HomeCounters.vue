@@ -43,7 +43,7 @@
         </div>
         <div class="level-item has-text-centered">
           <div>
-            <p class="heading">Supported Games</p>
+            <p class="heading">TB's of Bandwidth Served</p>
             <p class="title">
               <ICountUp
                 :delay="delay"
@@ -68,10 +68,10 @@ export default {
   data() {
     return {
       delay: 1000,
-      downloads: 13900,
+      downloads: 15900,
       totalMaps: 29,
       totalCinematics: 700,
-      totalGames: 2,
+      totalGames: 4,
       totalOptions: {
         useEasing: true,
         useGrouping: true,

@@ -40,7 +40,7 @@
         <div class="navbar-end">
           <div class="navbar-item">
             <a
-              v-if="isAuthed()"
+              v-if="isAuthed"
               @click="signOut"
               class="button is-inverted is-primary"
               custom
@@ -48,11 +48,7 @@
             >
               <i class="fad fa-sign-out" style="margin-right: .5rem"></i>Log Out
             </a>
-            <router-link
-              v-if="!isAuthed()"
-              to="/login"
-              class="button is-primary"
-            >
+            <router-link v-if="!isAuthed" to="/login" class="button is-primary">
               Log in
             </router-link>
           </div>
@@ -69,6 +65,7 @@
 <script>
 import firebase from '@firebase/app'
 import '@firebase/auth'
+import { mapGetters } from 'vuex'
 export default {
   data() {
     return {
@@ -79,8 +76,8 @@ export default {
       loading: true
     }
   },
-  mounted() {
-    this.isAuthed()
+  computed: {
+    ...mapGetters(['isAuthed'])
   },
   methods: {
     signOut() {
@@ -88,21 +85,11 @@ export default {
         .auth()
         .signOut()
         .then(() => {
-          this.$router.replace({ path: '/' })
+          this.$store.commit('isAuthed', false)
         })
         .catch(function(error) {
           alert('An error occurred when signing out: ' + error)
         })
-    },
-    isAuthed() {
-      let user = firebase.auth().currentUser
-      if (user) {
-        this.userAvatar = user.photoURL
-        this.displayName = user.displayName
-        return true
-      } else {
-        return false
-      }
     }
   }
 }

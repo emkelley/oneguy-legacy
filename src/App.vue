@@ -1,20 +1,19 @@
 <template>
   <div id="app">
-    <article id="globalNotification" class="notification is-primary global">
+    <article
+      id="globalNotification"
+      class="notification is-primary global has-text-centered"
+    >
       <button
         type="button"
         aria-label="Close notification"
         class="delete"
         @click="dismissGlobalNotification"
       ></button>
-      <div class="media">
-        <!---->
-        <div class="media-content has-text-centered">
-          <b-icon icon="info-circle" size="is-small" pack="fad"></b-icon>
-          To ease up on the system a little bit, all logins are now done with
-          social networks
-          <span style="margin-left: 1.25rem">- llOneGuyll</span>
-        </div>
+      <div class="site-banner">
+        To ease up on the system a little bit, all logins are now done with
+        social networks
+        <span style="margin-left: .25rem">-- oneguy</span>
       </div>
     </article>
     <BaseNavbar v-if="currentRoute !== 'login'" />

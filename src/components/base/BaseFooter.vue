@@ -6,8 +6,8 @@
     </p>
     <br />
     <p>
-      <a href="https://twitter.com/llOneGuyll" target="_blank" class="help"
-        >@llOneGuyll</a
+      <a href="https://twitter.com/0NEGUYY" target="_blank" class="help"
+        >@0NEGUYY</a
       >
       <a href="https://emk.dev" target="_blank" class="help"
         >ERICMKELLEY - {{ year }}</a

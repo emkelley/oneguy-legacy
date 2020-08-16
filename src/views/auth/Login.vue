@@ -53,10 +53,10 @@ export default {
             .auth()
             .signInWithPopup(provider)
             .then(user => {
+              console.log(user)
               const displayName = user.user.displayName
-              const avatar = user.user.photoURL
               this.$store.commit('setUserDisplayName', displayName)
-              this.$store.commit('setUserAvatar', avatar)
+              this.$store.commit('isAuthed', true)
               this.$router.push({
                 path: '/cinematics/overwatch'
               })
