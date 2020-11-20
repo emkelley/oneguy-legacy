@@ -40,7 +40,6 @@ export default {
             .auth()
             .signInWithPopup(provider)
             .then(user => {
-              console.log(user)
               const displayName = user.user.displayName
               if (user.user.email === 'e.kelley94@gmail.com')
                 this.$store.commit('setAdmin', true)
