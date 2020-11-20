@@ -1,25 +1,40 @@
 <!DOCTYPE html>
 <html lang="en" class="">
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-    <link rel="icon" href="<%= BASE_URL %>favicon.ico" />
-    <script
-      src="https://kit.fontawesome.com/6aab57228e.js"
-      crossorigin="anonymous"
-    ></script>
-    <link rel="stylesheet" href="https://use.typekit.net/nzz4mwv.css" />
-    <title>OneGuy Cinematics</title>
-  </head>
-  <body>
-    <noscript>
-      <strong
-        >We're sorry but OneGuy Cinematics doesn't work properly without
-        JavaScript enabled. Please enable it to continue.</strong
-      >
-    </noscript>
-    <div id="app"></div>
-    <!-- built files will be auto injected -->
-  </body>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <link rel="icon" href="<%= BASE_URL %>favicon.ico" />
+  <script src="https://kit.fontawesome.com/6aab57228e.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://use.typekit.net/nzz4mwv.css" />
+  <!-- Fathom - simple website analytics - https://github.com/usefathom/fathom -->
+  <!-- Fathom - simple website analytics - https://github.com/usefathom/fathom -->
+  <script>
+    (function (f, a, t, h, o, m) {
+      a[h] = a[h] || function () {
+        (a[h].q = a[h].q || []).push(arguments)
+      };
+      o = f.createElement('script'),
+        m = f.getElementsByTagName('script')[0];
+      o.async = 1; o.src = t; o.id = 'fathom-script';
+      m.parentNode.insertBefore(o, m)
+    })(document, window, 'https://stats.emk.dev/tracker.js', 'fathom');
+    fathom('set', 'siteId', 'VXGLO');
+    fathom('trackPageview');
+  </script>
+  <!-- / Fathom -->
+  <!-- / Fathom -->
+  <title>OneGuy Cinematics</title>
+</head>
+
+<body>
+  <noscript>
+    <strong>We're sorry but OneGuy Cinematics doesn't work properly without
+      JavaScript enabled. Please enable it to continue.</strong>
+  </noscript>
+  <div id="app"></div>
+  <!-- built files will be auto injected -->
+</body>
+
 </html>

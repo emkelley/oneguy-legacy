@@ -49,7 +49,7 @@
         <iframe
           src="https://open.spotify.com/embed/playlist/4cIOhoGpyWTefm1D3W7zVm"
           width="100%"
-          height="500"
+          height="500px"
           frameborder="0"
           allowtransparency="true"
           allow="encrypted-media *"
