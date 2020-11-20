@@ -13,7 +13,8 @@ const getDefaultState = () => {
     userId: null,
     userDisplayName: null,
     userAvatar: null,
-    isAuthed: false
+    isAuthed: false,
+    userProfile: null
   }
 }
 export default new Vuex.Store({
@@ -22,12 +23,14 @@ export default new Vuex.Store({
     userId: null,
     userDisplayName: null,
     userAvatar: null,
+    userProfile: null,
     isAuthed: false
   },
   getters: {
     isAuthed: state => state.isAuthed,
     user: state => state.user,
     userId: state => state.userId,
+    userProfile: state => state.userProfile,
     userDisplayName: state => state.userDisplayName,
     userAvatar: state => state.userAvatar,
     isAdmin: state => state.isAdmin
@@ -41,6 +44,9 @@ export default new Vuex.Store({
     },
     setUser(state, payload) {
       state.user = payload
+    },
+    setUserProfile(state, payload) {
+      state.userProfile = payload
     },
     setUserId(state, payload) {
       state.userId = payload

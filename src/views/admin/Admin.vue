@@ -159,7 +159,6 @@ export default {
 
 <style lang="scss" scoped>
 #admin {
-  padding-top: 52px;
   background-color: $light-300;
 }
 .wrapper {

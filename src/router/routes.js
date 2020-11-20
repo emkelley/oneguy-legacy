@@ -100,8 +100,7 @@ router.beforeEach((to, from, next) => {
   const requiresAdmin = to.matched.some(record => record.meta.requiresAdmin)
 
   if (requiresAuth && !currentUser) next('login')
-  else if (requiresAdmin && !store.state.userProfile.isAdmin)
-    next({ name: '403' })
+  else if (requiresAdmin && !store.state.isAdmin) next({ name: '403' })
   else next()
 })
 

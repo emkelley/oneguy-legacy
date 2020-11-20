@@ -1,21 +1,5 @@
 <template>
   <div id="app">
-    <article
-      id="globalNotification"
-      class="notification is-primary global has-text-centered"
-    >
-      <button
-        type="button"
-        aria-label="Close notification"
-        class="delete"
-        @click="dismissGlobalNotification"
-      ></button>
-      <div class="site-banner">
-        To ease up on the system a little bit, all logins are now done with
-        social networks
-        <span style="margin-left: .25rem">-- oneguy</span>
-      </div>
-    </article>
     <BaseNavbar v-if="currentRoute !== 'login'" />
     <router-view :key="$route.fullPath" />
     <BaseFooter />

@@ -54,34 +54,18 @@
       </div>
       <section id="music" class="container">
         <div class="columns features">
-          <div class="column is-6">
+          <div class="column is-12">
             <div class="card card-dark">
               <div class="card-content">
                 <div class="content has-text-centered">
                   <h4 class="title">Burn Water (ColdFusion)</h4>
                   <iframe
-                    src="https://open.spotify.com/embed?uri=spotify:artist:3qnrdgI8nroC045B0mnPgz"
+                    src="https://open.spotify.com/embed/playlist/4cIOhoGpyWTefm1D3W7zVm"
                     width="100%"
-                    height="380"
+                    height="500"
                     frameborder="0"
                     allowtransparency="true"
-                  ></iframe>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="column is-6">
-            <div class="card card-dark">
-              <div class="card-content">
-                <div class="content has-text-centered">
-                  <h4 class="title">A Himitsu</h4>
-                  <iframe
-                    src="https://open.spotify.com/embed/artist/2OWBve72RIOOqOmydsasPz"
-                    width="100%"
-                    height="380"
-                    frameborder="0"
-                    allowtransparency="true"
-                    allow="encrypted-media"
+                    allow="encrypted-media *"
                   ></iframe>
                 </div>
               </div>

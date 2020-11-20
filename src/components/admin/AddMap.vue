@@ -5,7 +5,7 @@
     <br />
     <div class="columns">
       <div class="column is-12">
-        <div class="form-wrapper">
+        <div class="form-wrapper og-card">
           <!-- <form
             method="POST"
             v-on:submit.prevent="uploadToCdn"
@@ -326,5 +326,24 @@ hr {
 }
 textarea {
   min-height: 250px !important;
+}
+.og-card {
+  background-color: white;
+  margin-bottom: 2rem;
+  border-radius: 6px;
+  padding: 1.5rem;
+  box-shadow: $shadow-large;
+  .og-card-content {
+    margin-bottom: 5rem;
+    .empty {
+      height: 300px;
+    }
+  }
+  .subtitle {
+    font-weight: bold;
+  }
+  img {
+    max-height: 200px;
+  }
 }
 </style>

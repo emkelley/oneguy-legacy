@@ -185,7 +185,7 @@ export default {
         let url =
           'https://www.youtube-nocookie.com/embed/' +
           this.mapData.yt +
-          '?autoplay=0&mute=1&origin=https://oneguy.io'
+          '?autoplay=1&mute=1&origin=https://oneguy.io'
         return url
       } else {
         return undefined

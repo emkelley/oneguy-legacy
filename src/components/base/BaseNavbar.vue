@@ -1,5 +1,9 @@
 <template>
-  <nav class="navbar" role="navigation" aria-label="main navigation">
+  <nav
+    class="navbar is-fixed-top"
+    role="navigation"
+    aria-label="main navigation"
+  >
     <div class="container">
       <div class="navbar-brand">
         <router-link to="/" class="navbar-item">
@@ -38,17 +42,20 @@
           <a class="navbar-item">Support</a> -->
         </div>
         <div class="navbar-end">
-          <div class="navbar-item">
+          <div v-if="isAuthed" class="navbar-item">
+            Welcome back, {{ userProfile.given_name }}
             <a
-              v-if="isAuthed"
               @click="signOut"
               class="button is-inverted is-primary"
               custom
               aria-role="menuitem"
+              style="margin-left: 1rem"
             >
               <i class="fad fa-sign-out" style="margin-right: .5rem"></i>Log Out
             </a>
-            <router-link v-if="!isAuthed" to="/login" class="button is-primary">
+          </div>
+          <div v-else class="navbar-item">
+            <router-link to="/login" class="button is-primary">
               Log in
             </router-link>
           </div>
@@ -77,7 +84,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['isAuthed'])
+    ...mapGetters(['isAuthed', 'userProfile'])
   },
   methods: {
     signOut() {
@@ -86,6 +93,7 @@ export default {
         .signOut()
         .then(() => {
           this.$store.commit('isAuthed', false)
+          this.$router.replace('/login')
         })
         .catch(function(error) {
           alert('An error occurred when signing out: ' + error)
@@ -97,8 +105,9 @@ export default {
 
 <style lang="scss" scoped>
 nav {
-  background: rgba($color: $light-300, $alpha: 0.9) !important;
+  background: rgba($color: $light-300, $alpha: 0.7) !important;
   backdrop-filter: saturate(200%) blur(10px) !important;
+  border-bottom: 1px solid $light-600;
 }
 .navbar-item {
   color: $light-900;

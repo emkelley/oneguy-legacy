@@ -40,8 +40,15 @@ export default {
             .auth()
             .signInWithPopup(provider)
             .then(user => {
+              console.log(user)
               const displayName = user.user.displayName
+              if (user.user.email === 'e.kelley94@gmail.com')
+                this.$store.commit('setAdmin', true)
               this.$store.commit('setUserDisplayName', displayName)
+              this.$store.commit(
+                'setUserProfile',
+                user.additionalUserInfo.profile
+              )
               this.$store.commit('isAuthed', true)
               this.$router.push({
                 path: '/cinematics/overwatch'

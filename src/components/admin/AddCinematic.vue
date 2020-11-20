@@ -7,7 +7,7 @@
       <div class="column is-12">
         <div class="og-card">
           <h2 class="subtitle">
-            <i class="fad fa-clipboard-list"></i>&ensp; General Information
+            Step 1. Upload Cinematics to CDN
           </h2>
           <div class="og-card-content">
             <div class="columns is-multiline">
@@ -135,49 +135,51 @@
           </p>
         </div>
         <div class="og-card">
-          <h2 class="subtitle">Step 2: Review Queue</h2>
+          <h2 class="subtitle">Step 2: Review Uploaded Cinematics</h2>
           <div class="og-card-content">
             <div class="columns">
               <div v-if="queue.length > 0" class="column is-12">
                 <b-table :data="queue" :columns="columns"></b-table>
               </div>
               <div v-else class="column empty has-text-centered va">
-                <i class="fal fa-empty-set fa-3x"></i>
-                <p>Nothing in queue...</p>
-                <br /><br />
-                <p>Add a cinematic above to review queued uploads.</p>
+                <center>
+                  <i class="fal fa-empty-set fa-3x"></i>
+                </center>
+                <br />
+                <p>Nothing has been uploaded yet</p>
+                <p>Add a cinematic above to review uploaded cinematics.</p>
               </div>
             </div>
           </div>
         </div>
-        <h3 class="heading">Step 3: Proccess Queue</h3>
-        <hr />
-        <br />
-        <br />
-        <div v-if="!queueProcessed" class="field has-text-centered">
-          <b-checkbox v-model="checkbox">
-            I have added all cinematics and verified their content.
-          </b-checkbox>
-          <br />
-          <br />
-          <button
-            :disabled="!checkbox"
-            @click="processQueue()"
-            class="button is-medium is-primary"
-          >
-            Process Cinematic Queue
-          </button>
-        </div>
-        <div v-else>
-          <h1 class="title">Queue Successfully Processed!</h1>
-          <a
-            v-if="queueProcessed"
-            :href="fullMapUrl"
-            target="_blank"
-            class="button is-medium is-primary"
-          >
-            View {{ mapName }} Page
-          </a>
+        <div class="og-card">
+          <h2 class="subtitle">Step 3: Add Cinematics Data to Firebase</h2>
+          <br /><br />
+          <div v-if="!queueProcessed" class="field has-text-centered">
+            <b-checkbox v-model="checkbox">
+              I have added all cinematics and verified their content.
+            </b-checkbox>
+            <br />
+            <br />
+            <button
+              :disabled="!checkbox"
+              @click="processQueue()"
+              class="button is-medium is-primary"
+            >
+              Process Cinematic Queue
+            </button>
+          </div>
+          <div v-else>
+            <h1 class="title">Queue Successfully Processed!</h1>
+            <a
+              v-if="queueProcessed"
+              :href="fullMapUrl"
+              target="_blank"
+              class="button is-medium is-primary"
+            >
+              View {{ mapName }} Page
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -302,7 +304,7 @@ export default {
           alert(error.message)
           this.status = {
             type: 'failure',
-            message: `An error occurred adding thumbnail to database. ${error.message}`
+            message: `An error occurred adding thumbnail to CDN. ${error.message}`
           }
           setTimeout(() => {
             this.status = undefined
@@ -321,8 +323,15 @@ export default {
           AccessKey: process.env.VUE_APP_BCDN_API_KEY
         }
       }
-      axios.put(url, cinematic, config).then(
-        response => {
+      const upload = new Promise((resolve, reject) => {
+        axios
+          .put(url, cinematic, config)
+          .then(response => resolve(response))
+          .catch(err => reject(err))
+      })
+
+      upload
+        .then(response => {
           if (response.status == 201) {
             let filePath = `/cinematics/${_.toLower(this.gameName)}/${
               this.counter
@@ -330,18 +339,17 @@ export default {
             this.cinematic.filePath = filePath
             this.queueCinematic()
           }
-        },
-        error => {
+        })
+        .catch(error => {
           alert(error.message)
           this.status = {
             type: 'failure',
-            message: `An error occurred adding thumbnail or video file to database. ${error.message}`
+            message: `An error occurred adding video file to CDN. ${error.message}`
           }
           setTimeout(() => {
             this.status = undefined
           }, 10000)
-        }
-      )
+        })
     },
     queueCinematic() {
       if (!this.options.uploadThumbnail) {
