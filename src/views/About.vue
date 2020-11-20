@@ -46,33 +46,15 @@
       </div>
       <br /><br /><br />
       <div class="news column is-12">
-        <h2 class="title">The Music of OneGuy Cinematics</h2>
-        <p class="subtitle">
-          These massively talented artists are the heart of the music in the
-          cinematics I produce.
-        </p>
+        <iframe
+          src="https://open.spotify.com/embed/playlist/4cIOhoGpyWTefm1D3W7zVm"
+          width="100%"
+          height="500"
+          frameborder="0"
+          allowtransparency="true"
+          allow="encrypted-media *"
+        ></iframe>
       </div>
-      <section id="music" class="container">
-        <div class="columns features">
-          <div class="column is-12">
-            <div class="card card-dark">
-              <div class="card-content">
-                <div class="content has-text-centered">
-                  <h4 class="title">Burn Water (ColdFusion)</h4>
-                  <iframe
-                    src="https://open.spotify.com/embed/playlist/4cIOhoGpyWTefm1D3W7zVm"
-                    width="100%"
-                    height="500"
-                    frameborder="0"
-                    allowtransparency="true"
-                    allow="encrypted-media *"
-                  ></iframe>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
     </section>
 
     <div class="section-dark"></div>
