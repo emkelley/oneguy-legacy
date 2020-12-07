@@ -17,6 +17,7 @@
       >
         <div class="hero-body">
           <div class="container has-text-centered">
+            <br /><br />
             <img
               v-if="gameData.logo"
               :src="gameData.logo"

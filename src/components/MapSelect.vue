@@ -57,7 +57,7 @@ export default {
 
 <style lang="scss" scoped>
 .og-card {
-  border-radius: 6px;
+  border-radius: 0px;
   box-shadow: $shadow-large;
   transition: 0.05s all ease-in-out;
   border: 1px solid $light-600;
@@ -73,11 +73,10 @@ export default {
     }
   }
   .og-card-header {
-    background: rgba($color: #fff, $alpha: 0.5) !important;
-    backdrop-filter: saturate(200%) blur(5px) !important;
-    border-top-right-radius: 6px;
-    border-top-left-radius: 6px;
+    background: rgba($color: #fff, $alpha: 0.6) !important;
+    backdrop-filter: saturate(200%) blur(4px) !important;
     font-family: nunito-sans, sans-serif !important;
+    border-bottom: 1px solid $light-600;
     z-index: 99;
   }
   .og-card-body {
@@ -91,8 +90,6 @@ export default {
   }
   .og-card-footer {
     background: $light-400;
-    border-bottom-right-radius: 6px;
-    border-bottom-left-radius: 6px;
   }
 }
 </style>
