@@ -2,15 +2,15 @@
   <footer class="va has-text-centered">
     <p class="">
       OneGuy Cinematics is made with
-      <i class="fal fa-heart"></i> by
+      <i class="fad fa-heart"></i> by
       <a href="https://emk.dev" target="_blank">Eric Kelley -</a>
       <a href="https://twitter.com/0NEGUYY" target="_blank"> @0NEGUYY</a>
     </p>
     <br />
     <p>
-      <a href="https://gitter.im/emkelley/community" target="_blank"
-        >Have issues? Send me a message on Gitter</a
-      >
+      <a href="https://twitter.com/0NEGUYY" target="_blank">
+        Have issues? Send me a message on Twitter <i class="fab fa-twitter"></i>
+      </a>
       <br /><br />
     </p>
   </footer>

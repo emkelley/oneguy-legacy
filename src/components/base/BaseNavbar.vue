@@ -34,9 +34,23 @@
           <router-link to="/" class="navbar-item">Home</router-link>
           <router-link to="/about" class="navbar-item">About</router-link>
 
-          <router-link to="/cinematics/overwatch" class="navbar-item"
-            >Overwatch Cinematics</router-link
-          >
+          <router-link to="/usage" class="navbar-item">Usage</router-link>
+          <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link">
+              Games
+            </a>
+
+            <div class="navbar-dropdown">
+              <router-link to="/cinematics/overwatch" class="navbar-item"
+                ><i class="fak fa-ow"></i> Overwatch</router-link
+              >
+              <hr class="navbar-divider" />
+              <a class="navbar-item">
+                <i class="fas fa-vote-yea"></i>
+                Request a Game
+              </a>
+            </div>
+          </div>
 
           <!-- <a class="navbar-item">FAQ's</a>
           <a class="navbar-item">Support</a> -->
@@ -44,15 +58,16 @@
         <div class="navbar-end">
           <div v-if="isAuthed" class="navbar-item">
             Welcome back, {{ userProfile.given_name }}
-            <a
+            <button
               @click="signOut"
-              class="button is-inverted is-primary"
+              class="button is-primary is-light"
               custom
               aria-role="menuitem"
               style="margin-left: 1rem"
             >
-              <i class="fad fa-sign-out" style="margin-right: .5rem"></i>Log Out
-            </a>
+              <i class="fad fa-sign-out" style="margin-right: .5rem"></i>
+              Log Out
+            </button>
           </div>
           <div v-else class="navbar-item">
             <router-link to="/login" class="button is-primary">
@@ -105,7 +120,7 @@ export default {
 
 <style lang="scss" scoped>
 nav {
-  background: rgba($color: $light-300, $alpha: 0.7) !important;
+  background: rgba($color: $light-300, $alpha: 0.5) !important;
   backdrop-filter: saturate(200%) blur(10px) !important;
   border-bottom: 1px solid $light-600;
 }
@@ -113,5 +128,9 @@ nav {
   color: $light-900;
   letter-spacing: 0.05rem;
   font-family: nunito-sans, sans-serif;
+  i,
+  svg {
+    margin-right: 0.5rem;
+  }
 }
 </style>
