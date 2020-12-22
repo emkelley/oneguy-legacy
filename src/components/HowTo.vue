@@ -1,6 +1,6 @@
 <template>
   <section class="how-wrapper">
-    <div class="container ">
+    <div class="container">
       <div class="title-group">
         <h1 class="title is-2">Getting started is easy as 1, 2, 3</h1>
       </div>

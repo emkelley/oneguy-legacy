@@ -97,9 +97,7 @@
           <hr />
           <div class="columns">
             <div class="column is-4">
-              <p style="font-weight: bold">
-                Upload Map Poster Image:
-              </p>
+              <p style="font-weight: bold">Upload Map Poster Image:</p>
               <br />
               <div class="upload-btn va">
                 <b-field class="file">
@@ -116,9 +114,7 @@
               </div>
             </div>
             <div class="column has-text-centered">
-              <p style="font-weight: bold">
-                Preview:
-              </p>
+              <p style="font-weight: bold">Preview:</p>
               <div id="preview">
                 <img width="100%" v-if="previewUrl" :src="previewUrl" />
               </div>
@@ -154,7 +150,7 @@
 
 <script>
 import { db } from '@/main'
-import uuidv4 from 'uuid/v4'
+import { uuid } from 'uuidv4'
 import axios from 'axios'
 import moment from 'moment'
 import _ from 'lodash'
@@ -195,12 +191,12 @@ export default {
       }
       return url
     },
-    mapUrl: function() {
+    mapUrl: function () {
       return (
         '/cinematics/' + _.toLower(this.mapInfo.game) + '/' + this.kebabName
       )
     },
-    kebabName: function() {
+    kebabName: function () {
       return this.convertToKebabCase(this.mapInfo.mapName)
     }
   },
@@ -247,7 +243,7 @@ export default {
       this.mapInfo.url = this.mapUrl
       this.mapInfo.poster = url
       this.mapInfo.slug = this.kebabName
-      this.mapInfo.id = uuidv4()
+      this.mapInfo.id = uuid()
       let day = this.customDay
       let month = this.customMonth
       let year = this.customYear

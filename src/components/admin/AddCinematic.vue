@@ -6,9 +6,7 @@
     <div class="columns">
       <div class="column is-12">
         <div class="og-card">
-          <h2 class="subtitle">
-            Step 1. Upload Cinematics to CDN
-          </h2>
+          <h2 class="subtitle">Step 1. Upload Cinematics to CDN</h2>
           <div class="og-card-content">
             <div class="columns is-multiline">
               <div class="column">
@@ -119,8 +117,8 @@
                 :class="{ 'is-loading': addLoading }"
                 :disabled="
                   addLoading ||
-                    this.gameName == undefined ||
-                    this.mapName == undefined
+                  this.gameName == undefined ||
+                  this.mapName == undefined
                 "
                 class="button is-medium is-primary is-outlined"
               >
@@ -188,7 +186,7 @@
 
 <script>
 import { db } from '@/main'
-import uuidv4 from 'uuid/v4'
+import { uuid } from 'uuidv4'
 import axios from 'axios'
 import _ from 'lodash'
 export default {
@@ -241,16 +239,16 @@ export default {
       }
       return url
     },
-    mapUrl: function() {
+    mapUrl: function () {
       return '/cinematics/' + _.toLower(this.gameName) + '/' + this.kebabName
     },
-    kebabName: function() {
+    kebabName: function () {
       return this.convertToKebabCase(this.mapName)
     },
-    fullMapUrl: function() {
+    fullMapUrl: function () {
       return 'https://oneguy.io' + this.mapUrl
     },
-    filePath: function() {
+    filePath: function () {
       return this.mapUrl + '/' + this.kebabName + '-' + this.counter + '.mp4'
     }
   },
@@ -258,7 +256,7 @@ export default {
     processCinematic() {
       this.addLoading = true
       this.queueProcessed = false
-      this.cinematic._id = uuidv4()
+      this.cinematic._id = uuid()
       this.cinematic.number = Number(this.counter)
       if (this.mapName == undefined || this.gameName == undefined) {
         this.status = {
@@ -392,10 +390,7 @@ export default {
           number: doc.number
         }
         setTimeout(() => {
-          db.collection('maps')
-            .doc(map)
-            .collection('cinematics')
-            .add(cinematic)
+          db.collection('maps').doc(map).collection('cinematics').add(cinematic)
         }, 200)
         this.queue = []
       })

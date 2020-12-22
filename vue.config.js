@@ -10,8 +10,8 @@ module.exports = {
   },
   css: {
     loaderOptions: {
-      sass: {
-        prependData: `
+      scss: {
+        additionalData: `
           @import "~@/assets/styles/_pallettes.scss";
         `
       }

@@ -90,16 +90,16 @@ export default {
     }
   },
   methods: {
-    totalReady: function(instance) {
+    totalReady: function (instance) {
       instance.update(this.downloads)
     },
-    mapReady: function(instance) {
+    mapReady: function (instance) {
       instance.update(this.totalMaps)
     },
-    cineReady: function(instance) {
+    cineReady: function (instance) {
       instance.update(this.totalCinematics)
     },
-    gamesReady: function(instance) {
+    gamesReady: function (instance) {
       instance.update(this.totalGames)
     }
   }

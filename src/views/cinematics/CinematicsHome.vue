@@ -1,15 +1,11 @@
 <template>
   <main>
     <vue-headful title="Avalilable Cinematics - OneGuy Cinematics" />
-    <section class="hero is-medium ">
+    <section class="hero is-medium">
       <div class="hero-body">
         <div class="container has-text-centered">
-          <h1 class="title">
-            Available Cinematics
-          </h1>
-          <h2 class="subtitle">
-            Select a game below to browse cinematics
-          </h2>
+          <h1 class="title">Available Cinematics</h1>
+          <h2 class="subtitle">Select a game below to browse cinematics</h2>
         </div>
       </div>
     </section>

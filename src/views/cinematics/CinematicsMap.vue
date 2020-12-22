@@ -19,7 +19,7 @@
     </section>
     <section v-if="!loading" class="game-content">
       <section
-        class="hero is-medium "
+        class="hero is-medium"
         :style="{ 'background-image': 'url(' + mapData.poster + ')' }"
       >
         <div class="hero-body">
@@ -63,7 +63,7 @@
                         <p class="title">{{ mapData.mapName }}</p>
                       </div>
                     </div>
-                    <div class="level-item" style="margin-left: 2rem;">
+                    <div class="level-item" style="margin-left: 2rem">
                       <div>
                         <p class="heading">Game</p>
                         <p class="title">{{ this.mapData.game }}</p>
@@ -180,7 +180,7 @@ export default {
     }
   },
   computed: {
-    yt: function() {
+    yt: function () {
       if (this.mapData) {
         let url =
           'https://www.youtube-nocookie.com/embed/' +
@@ -272,10 +272,7 @@ export default {
       let hashableBase = securityKey + path + expires
       // Generate and encode the token
       let token = CryptoJS.MD5(hashableBase).toString(CryptoJS.enc.Base64)
-      token = token
-        .replace(/\+/g, '-')
-        .replace(/\//g, '_')
-        .replace(/\=/g, '') //eslint-disable-line
+      token = token.replace(/\+/g, '-').replace(/\//g, '_').replace(/\=/g, '') //eslint-disable-line
 
       // Build the URL
       let URL =

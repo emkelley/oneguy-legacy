@@ -4,9 +4,7 @@
     <section class="hero is-primary is-bold">
       <div class="hero-body">
         <div class="container has-text-centered">
-          <h1 class="title">
-            Admin Panel
-          </h1>
+          <h1 class="title">Admin Panel</h1>
         </div>
       </div>
     </section>
@@ -15,9 +13,7 @@
         <div class="columns">
           <div class="column is-2">
             <aside class="menu">
-              <p class="menu-label">
-                App
-              </p>
+              <p class="menu-label">App</p>
               <ul class="menu-list">
                 <li>
                   <a
@@ -34,9 +30,7 @@
                 </li>
               </ul>
               <br />
-              <p class="menu-label">
-                New Content
-              </p>
+              <p class="menu-label">New Content</p>
               <ul class="menu-list">
                 <li>
                   <a
@@ -64,9 +58,7 @@
                 </li>
               </ul>
               <br />
-              <p class="menu-label">
-                Manage
-              </p>
+              <p class="menu-label">Manage</p>
               <ul class="menu-list">
                 <li>
                   <a

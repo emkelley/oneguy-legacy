@@ -36,9 +36,7 @@
 
           <router-link to="/usage" class="navbar-item">Usage</router-link>
           <div class="navbar-item has-dropdown is-hoverable">
-            <a class="navbar-link">
-              Games
-            </a>
+            <a class="navbar-link"> Games </a>
 
             <div class="navbar-dropdown">
               <router-link to="/cinematics/overwatch" class="navbar-item"
@@ -65,7 +63,7 @@
               aria-role="menuitem"
               style="margin-left: 1rem"
             >
-              <i class="fad fa-sign-out" style="margin-right: .5rem"></i>
+              <i class="fad fa-sign-out" style="margin-right: 0.5rem"></i>
               Log Out
             </button>
           </div>
@@ -110,7 +108,7 @@ export default {
           this.$store.commit('isAuthed', false)
           this.$router.replace('/login')
         })
-        .catch(function(error) {
+        .catch(function (error) {
           alert('An error occurred when signing out: ' + error)
         })
     }

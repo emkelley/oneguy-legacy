@@ -12,7 +12,7 @@
     </section>
     <section v-if="gameData" class="game-content">
       <section
-        class="hero is-medium "
+        class="hero is-medium"
         :style="{ 'background-image': 'url(' + gameData.hero + ')' }"
       >
         <div class="hero-body">

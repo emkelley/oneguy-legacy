@@ -7,7 +7,7 @@
             <img src="~@/assets/img/logo-horizontal-white.svg" width="250" />
           </center>
           <br />
-          <strong style="color: white" class=" has-text-centered">
+          <strong style="color: white" class="has-text-centered">
             Create A New Account
           </strong>
         </div>

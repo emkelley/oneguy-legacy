@@ -10,10 +10,10 @@
         <br />
         <p class="help status">Log in with a provider below:</p>
         <br />
-        <a @click="signIn('google')" class="button is-inverted is-medium"
-          ><i class="fab fa-google" style="margin-right: .75rem"></i> Log in
-          with Google</a
-        >
+        <a @click="signIn('google')" class="button is-inverted is-medium">
+          <i class="fab fa-google" style="margin-right: 0.75rem"></i> Log in
+          with Google
+        </a>
         <br /><br />
       </div>
     </div>

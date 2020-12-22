@@ -2,7 +2,7 @@
   <article class="article column is-6 has-text-centered">
     <div class="columns is-multiline wrapper">
       <div
-        class="column is-12 img game-selection "
+        class="column is-12 img game-selection"
         :style="{ 'background-image': 'url(' + thumbnail + ')' }"
       ></div>
       <div class="column va">

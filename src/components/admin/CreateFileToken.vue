@@ -45,10 +45,7 @@ export default {
       let hashableBase = securityKey + path + expires
       // Generate and encode the token
       let token = CryptoJS.MD5(hashableBase).toString(CryptoJS.enc.Base64)
-      token = token
-        .replace(/\+/g, '-')
-        .replace(/\//g, '_')
-        .replace(/\=/g, '') //eslint-disable-line
+      token = token.replace(/\+/g, '-').replace(/\//g, '_').replace(/\=/g, '') //eslint-disable-line
       // Generate the URL
       this.finalUrl =
         'https://v.cdn.oneguy.io' +

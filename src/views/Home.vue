@@ -16,7 +16,7 @@
             <span>Cinematics</span> and <span>Photography</span> <br />
             <br />
             <router-link to="/login" class="button is-primary is-large cta-btn">
-              <i class="fas fa-rocket" style="margin-right: .75rem"></i>Get
+              <i class="fas fa-rocket" style="margin-right: 0.75rem"></i>Get
               Started
             </router-link>
           </h1>
@@ -39,7 +39,7 @@
     </section>
     <HomeCounters />
     <section class="latest">
-      <div class="container og-section ">
+      <div class="container og-section">
         <h1 class="title is-2">
           <i class="fad fa-film"></i>&ensp;Featured Cinematic Packs
         </h1>
