@@ -162,6 +162,7 @@ import MapSelect from '@/components/MapSelect.vue'
 import FeaturedMini from '@/components/FeaturedMini.vue'
 import _ from 'lodash'
 import CryptoJS from 'crypto-js'
+import crypto from 'crypto'
 export default {
   components: {
     MapSelect,
@@ -266,7 +267,7 @@ export default {
       })
     },
     getDownloadLink(path) {
-      let securityKey = process.env.VUE_APP_BCDN_API_KEY
+      let securityKey = process.env.VUE_APP_BCDN_TOKEN
       // Set the time of expiry to one hour from now
       let expires = Math.round(Date.now() / 1000) + 3600
       let hashableBase = securityKey + path + expires
