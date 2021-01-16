@@ -165,7 +165,7 @@ import CryptoJS from 'crypto-js'
 export default {
   components: {
     MapSelect,
-    FeaturedMini
+    FeaturedMini,
   },
   data() {
     return {
@@ -176,7 +176,7 @@ export default {
       errorCode: undefined,
       status: '',
       wikiData: undefined,
-      featured: undefined
+      featured: undefined,
     }
   },
   computed: {
@@ -203,7 +203,7 @@ export default {
       } else {
         return false
       }
-    }
+    },
   },
   mounted() {
     this.fetchMapData()
@@ -266,7 +266,7 @@ export default {
       })
     },
     getDownloadLink(path) {
-      let securityKey = process.env.VUE_APP_BCDN_TOKEN
+      let securityKey = process.env.VUE_APP_BCDN_API_KEY
       // Set the time of expiry to one hour from now
       let expires = Math.round(Date.now() / 1000) + 3600
       let hashableBase = securityKey + path + expires
@@ -283,8 +283,8 @@ export default {
         '&expires=' +
         expires
       window.open(URL, '_blank')
-    }
-  }
+    },
+  },
 }
 </script>
 <style lang="scss" scoped>
