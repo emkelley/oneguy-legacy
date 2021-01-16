@@ -28,25 +28,32 @@
 </template>
 
 <script>
-import CryptoJS from 'crypto-js'
+import crypto from 'crypto'
 export default {
   data() {
     return {
       path: '/app/card-fallback.jpg',
-      finalUrl: undefined
+      finalUrl: undefined,
     }
   },
   methods: {
     createToken() {
-      let path = this.path
-      let securityKey = process.env.VUE_APP_BCDN_TOKEN
-      // Set the time of expiry to one hour from now
-      let expires = Math.round(Date.now() / 1000) + 3600
-      let hashableBase = securityKey + path + expires
-      // Generate and encode the token
-      let token = CryptoJS.MD5(hashableBase).toString(CryptoJS.enc.Base64)
-      token = token.replace(/\+/g, '-').replace(/\//g, '_').replace(/\=/g, '') //eslint-disable-line
-      // Generate the URL
+      const path = this.path
+      const securityKey = process.env.VUE_APP_BCDN_TOKEN
+      const expires = Math.round(Date.now() / 1000) + 3600
+      const hashableBase = securityKey + path + expires
+      const md5String = crypto
+        .createHash('md5')
+        .update(hashableBase)
+        .digest('binary')
+      let token = new Buffer(md5String, 'binary').toString('base64')
+      token = token
+        .replace('\n', '')
+        .replace('+', '-')
+        .replace('/', '_')
+        .replace('=', '')
+
+      // Build the URL
       this.finalUrl =
         'https://v.cdn.oneguy.io' +
         path +
@@ -54,8 +61,8 @@ export default {
         token +
         '&expires=' +
         expires
-    }
-  }
+    },
+  },
 }
 </script>
 
