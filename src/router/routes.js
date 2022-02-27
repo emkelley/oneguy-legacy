@@ -15,25 +15,32 @@ const router = new VueRouter({
     {
       path: '/',
       name: 'home',
-      component: () => import(/* webpackChunkName: "Home" */ '@/views/Home.vue')
+      component: () =>
+        import(/* webpackChunkName: "Home" */ '@/views/Home.vue'),
     },
     {
       path: '/login',
       name: 'login',
       component: () =>
-        import(/* webpackChunkName: "Login" */ '@/views/auth/Login.vue')
+        import(/* webpackChunkName: "Login" */ '@/views/auth/Login.vue'),
     },
     {
       path: '/register',
       name: 'register',
       component: () =>
-        import(/* webpackChunkName: "Register" */ '@/views/auth/Register.vue')
+        import(/* webpackChunkName: "Register" */ '@/views/auth/Register.vue'),
     },
     {
       path: '/about',
       name: 'about',
       component: () =>
-        import(/* webpackChunkName: "Register" */ '@/views/About.vue')
+        import(/* webpackChunkName: "Register" */ '@/views/About.vue'),
+    },
+    {
+      path: '/usage',
+      name: 'usage',
+      component: () =>
+        import(/* webpackChunkName: "usage" */ '@/views/Usage.vue'),
     },
     {
       path: '/cinematics',
@@ -41,7 +48,7 @@ const router = new VueRouter({
       component: () =>
         import(
           /* webpackChunkName: "CinematicsHome" */ '@/views/cinematics/CinematicsHome.vue'
-        )
+        ),
     },
     {
       path: '/cinematics/:gameId',
@@ -49,7 +56,7 @@ const router = new VueRouter({
       component: () =>
         import(
           /* webpackChunkName: "CinematicsGame" */ '@/views/cinematics/CinematicsGame.vue'
-        )
+        ),
     },
     {
       path: '/cinematics/:gameId/:mapId',
@@ -57,7 +64,7 @@ const router = new VueRouter({
       component: () =>
         import(
           /* webpackChunkName: "CinematicsMap" */ '@/views/cinematics/CinematicsMap.vue'
-        )
+        ),
     },
     {
       path: '/account',
@@ -65,8 +72,8 @@ const router = new VueRouter({
       component: () =>
         import(/* webpackChunkName: "Account" */ '@/views/user/Account.vue'),
       meta: {
-        requiresAuth: true
-      }
+        requiresAuth: true,
+      },
     },
     {
       path: '/admin',
@@ -75,23 +82,23 @@ const router = new VueRouter({
         import(/* webpackChunkName: "Account" */ '@/views/admin/Admin.vue'),
       meta: {
         requiresAuth: true,
-        requiresAdmin: true
-      }
+        requiresAdmin: true,
+      },
     },
     {
       path: '/error/404',
       name: '404',
       component: () =>
-        import(/* webpackChunkName: "Error404" */ '@/views/error/404.vue')
+        import(/* webpackChunkName: "Error404" */ '@/views/error/404.vue'),
     },
     {
       path: '/error/403',
       name: '403',
       component: () =>
-        import(/* webpackChunkName: "Error403" */ '@/views/error/403.vue')
+        import(/* webpackChunkName: "Error403" */ '@/views/error/403.vue'),
     },
-    { path: '*', redirect: '/error/404' }
-  ]
+    { path: '*', redirect: '/error/404' },
+  ],
 })
 // )
 router.beforeEach((to, from, next) => {
