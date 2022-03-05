@@ -1,9 +1,5 @@
 <template>
-  <nav
-    class="navbar is-fixed-top"
-    role="navigation"
-    aria-label="main navigation"
-  >
+  <nav class="navbar" role="navigation" aria-label="main navigation">
     <div class="container">
       <div class="navbar-brand">
         <router-link to="/" class="navbar-item">
@@ -93,11 +89,11 @@ export default {
       respones: undefined,
       userAvatar: null,
       displayName: null,
-      loading: true
+      loading: true,
     }
   },
   computed: {
-    ...mapGetters(['isAuthed', 'userProfile'])
+    ...mapGetters(['isAuthed', 'userProfile']),
   },
   methods: {
     signOut() {
@@ -111,8 +107,8 @@ export default {
         .catch(function (error) {
           alert('An error occurred when signing out: ' + error)
         })
-    }
-  }
+    },
+  },
 }
 </script>
 

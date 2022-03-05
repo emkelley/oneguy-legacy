@@ -1,5 +1,16 @@
 <template>
   <div id="app">
+    <div
+      class="py-4 has-text-center"
+      style="background: #0058b5; color: #ffd506"
+    >
+      <center>
+        <p>
+          Cinematics downloads have been blocked from all Russian IP Addresses.
+          Slava Ukraini!
+        </p>
+      </center>
+    </div>
     <BaseNavbar v-if="currentRoute !== 'login'" />
     <router-view :key="$route.fullPath" />
     <BaseFooter />
@@ -11,19 +22,19 @@ import BaseFooter from '@/components/base/BaseFooter.vue'
 export default {
   components: {
     BaseNavbar,
-    BaseFooter
+    BaseFooter,
   },
   computed: {
     currentRoute() {
       return this.$router.currentRoute.name
-    }
+    },
   },
   methods: {
     dismissGlobalNotification() {
       let x = document.getElementById('globalNotification')
       x.style.display = 'none'
-    }
-  }
+    },
+  },
 }
 </script>
 <style lang="scss">
