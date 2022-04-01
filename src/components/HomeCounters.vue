@@ -9,7 +9,7 @@
               <ICountUp
                 :delay="delay"
                 :endVal="downloads"
-                :options="totalOptions"
+                :options="options"
                 @ready="totalReady"
               />
             </p>
@@ -22,7 +22,7 @@
               <ICountUp
                 :delay="delay"
                 :endVal="totalCinematics"
-                :options="totalOptions"
+                :options="options"
                 @ready="cineReady"
               />
             </p>
@@ -43,12 +43,12 @@
         </div>
         <div class="level-item has-text-centered">
           <div>
-            <p class="heading">TB's of Bandwidth Served</p>
+            <p class="heading">Bandwidth Served</p>
             <p class="title">
               <ICountUp
                 :delay="delay"
                 :endVal="totalGames"
-                :options="options"
+                :options="bandwidthOptions"
                 @ready="gamesReady"
               />
             </p>
@@ -63,30 +63,30 @@
 import ICountUp from 'vue-countup-v2'
 export default {
   components: {
-    ICountUp
+    ICountUp,
   },
   data() {
     return {
       delay: 1000,
-      downloads: 15900,
-      totalMaps: 29,
+      downloads: 122500,
+      totalMaps: 30,
       totalCinematics: 700,
-      totalGames: 4,
-      totalOptions: {
+      totalGames: 210,
+      bandwidthOptions: {
         useEasing: true,
         useGrouping: true,
         separator: ',',
         decimal: '.',
         prefix: '',
-        suffix: '+'
+        suffix: 'TB',
       },
       options: {
         useEasing: true,
         useGrouping: true,
         separator: ',',
         decimal: '.',
-        prefix: ''
-      }
+        suffix: '+',
+      },
     }
   },
   methods: {
@@ -101,8 +101,8 @@ export default {
     },
     gamesReady: function (instance) {
       instance.update(this.totalGames)
-    }
-  }
+    },
+  },
 }
 </script>
 

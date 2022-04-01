@@ -40,18 +40,18 @@ export default {
   props: {
     featured: {
       type: Array,
-      required: true
-    }
+      required: true,
+    },
   },
   components: {
-    MapSelect
+    MapSelect,
   },
   data() {
     return {
       loading: false,
-      gamesArray: []
+      gamesArray: [],
     }
-  }
+  },
 }
 </script>
 

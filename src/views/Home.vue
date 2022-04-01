@@ -87,12 +87,12 @@ export default {
     // HowTo,
     HomeHero,
     MapSelect,
-    HomeCounters
+    HomeCounters,
   },
   data() {
     return {
       title: 'Home',
-      featured: []
+      featured: [],
     }
   },
   mounted() {
@@ -111,8 +111,8 @@ export default {
           this.featured = _.clone(gamesArray)
         }
       })
-    }
-  }
+    },
+  },
 }
 </script>
 
