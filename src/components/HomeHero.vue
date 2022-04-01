@@ -24,13 +24,13 @@ if (process.browser) {
 export default {
   name: 'HomeHero',
   components: {
-    VueTyper
+    VueTyper,
   },
   data() {
     return {
-      heroText: ['cinematography', 'quality', 'beauty', 'detail', 'class']
+      heroText: ['cinematography', 'quality', 'beauty', 'detail'],
     }
-  }
+  },
 }
 </script>
 
