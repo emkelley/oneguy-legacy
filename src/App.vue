@@ -61,7 +61,7 @@ export default {
     }
   }
   .body {
-    font-family: 'nunito-sans' sans-serif;
+    font-family: 'Inter' sans-serif;
   }
 }
 // @font-face {
@@ -76,7 +76,7 @@ export default {
 //   font-style: normal;
 // }
 #app {
-  font-family: 'nunito-sans', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI',
     Roboto, 'Helvetica Neue', Arial, sans-serif !important;
   font-size: 16px;
   word-spacing: 1px;
